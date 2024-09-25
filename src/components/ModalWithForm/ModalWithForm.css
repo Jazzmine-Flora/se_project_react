@@ -11,11 +11,11 @@
 }
 
 .modal__title {
-  margin: 0;
+  margin-top: 28px;
+  margin-left: 28px;
   font-family: "Cabinet Grotesk";
   font-size: 16px;
-  line-height: 20px;
-  margin-bottom: 24px;
+  margin-bottom: 0;
 }
 
 .modal__close {
@@ -30,7 +30,7 @@
 
 .modal__content {
   background-color: #fff;
-  padding: 28px 28px 36px;
+
   border-radius: 20px;
   width: 496px;
   height: 436px;
@@ -40,13 +40,18 @@
 .modal__form {
   display: flex;
   flex-direction: column;
+  padding: 24px 28px 36px;
+  /* width: 100%; */
 }
 
 .modal__input {
   width: 100%;
   display: block;
   height: 24px;
-  border: 1px solid #e0e0e0;
+  border-bottom: 1px solid #000000;
+  border-top: none;
+  border-left: none;
+  border-right: none;
   margin-bottom: 24px;
 
   font-family: "Cabinet Grotesk";
@@ -59,6 +64,7 @@
   font-family: "Cabinet Grotesk";
   font-size: 16px;
   line-height: 20px;
+  margin-top: 0;
 }
 
 .modal__fieldset {
