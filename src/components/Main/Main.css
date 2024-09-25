@@ -1,0 +1,12 @@
+.cards__list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 328px); */
+  gap: 15px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
