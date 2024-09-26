@@ -6,12 +6,14 @@
 }
 
 .modal__footer {
+  padding: 20px 0 32px 32px;
 }
 
 .modal__caption {
   color: black;
   font-family: "Cabinet Grotesk";
   font-size: 20px;
+  margin: 0;
 }
 
 .modal__image {
@@ -20,13 +22,20 @@
   object-fit: cover;
   object-position: center;
   border-radius: 15px;
+  font-weight: 700;
   /* position: relative; */
 }
 
 .modal__weather {
   color: black;
-  /* margin: 0; */
+  margin: 12px 0 0 0;
   font-family: "Cabinet Grotesk";
   font-size: 20px;
+  font-weight: 700;
   /* position: absolute; */
+}
+
+.modal__close-icon {
+  width: 20px;
+  height: 20px;
 }
