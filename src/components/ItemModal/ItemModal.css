@@ -1,0 +1,32 @@
+.modal__content_type_image {
+  width: 498px;
+  height: 610px;
+  border-radius: 15px;
+  background-color: white;
+}
+
+.modal__footer {
+}
+
+.modal__caption {
+  color: black;
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+}
+
+.modal__image {
+  max-width: 498px;
+  height: 498px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 15px;
+  /* position: relative; */
+}
+
+.modal__weather {
+  color: black;
+  /* margin: 0; */
+  font-family: "Cabinet Grotesk";
+  font-size: 20px;
+  /* position: absolute; */
+}

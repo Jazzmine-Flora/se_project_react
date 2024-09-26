@@ -13,6 +13,8 @@
   position: absolute;
   top: 20px;
   left: 16px;
+  color: #fff;
+  font-family: "Cabinet Grotesk";
 }
 
 .weather-card__image {
