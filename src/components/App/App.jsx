@@ -21,12 +21,16 @@ function App() {
     setSelectedCard(card);
     setActiveModal("preview");
   };
-  const handleOpenModal = () => setActiveModal(true);
-  const handleCloseModal = () => setActiveModal(false);
+  // const handleOpenModal = () => setActiveModal(true);
+  // const handleCloseModal = () => setActiveModal(false);
 
-  // const handleItemCloseModal = () => {
-  //   setActiveModal("");
-  // };
+  const handleAddClick = () => {
+    setActiveModal("add-garment");
+  };
+
+  const handleCloseModal = () => {
+    setActiveModal("");
+  };
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -42,7 +46,7 @@ function App() {
   return (
     <div className="page">
       <div className="page__container">
-        <Header handleAddClick={handleOpenModal} weatherData={weatherData} />
+        <Header handleAddClick={handleAddClick} weatherData={weatherData} />
         <Main weatherData={weatherData} handleCardClick={handleCardClick} />
         <Footer />
       </div>
