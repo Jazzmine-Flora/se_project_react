@@ -16,17 +16,17 @@ function App() {
   });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
   const handleCardClick = (card) => {
     setSelectedCard(card);
     setActiveModal("preview");
   };
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = () => setActiveModal(true);
+  const handleCloseModal = () => setActiveModal(false);
 
-  const handleItemCloseModal = () => {
-    setActiveModal("");
-  };
+  // const handleItemCloseModal = () => {
+  //   setActiveModal("");
+  // };
 
   useEffect(() => {
     getWeather(coordinates, APIkey)
@@ -51,7 +51,7 @@ function App() {
         title="New garment"
         activeModal={activeModal}
         onClose={handleCloseModal}
-        isOpen={isModalOpen}
+        isOpen={activeModal}
       >
         <label htmlFor="name" className="modal__label">
           <p className="input__title">Name</p>
@@ -116,7 +116,7 @@ function App() {
       <ItemModal
         activeModal={activeModal}
         card={selectedCard}
-        onClose={handleItemCloseModal}
+        onClose={handleCloseModal}
       />
     </div>
   );
