@@ -55,7 +55,7 @@ function App() {
         title="New garment"
         activeModal={activeModal}
         onClose={handleCloseModal}
-        isOpen={activeModal}
+        isOpen={activeModal === "add-garment"}
       >
         <label htmlFor="name" className="modal__label">
           <p className="input__title">Name</p>
@@ -118,9 +118,10 @@ function App() {
         </fieldset>
       </ModalWithForm>
       <ItemModal
-        activeModal={activeModal}
+        // activeModal={activeModal}
         card={selectedCard}
         onClose={handleCloseModal}
+        isOpen={activeModal === "preview"}
       />
     </div>
   );

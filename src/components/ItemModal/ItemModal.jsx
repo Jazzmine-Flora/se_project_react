@@ -1,9 +1,9 @@
 import "./ItemModal.css";
 import closeIcon from "../../assets/Cross.svg";
 
-function ItemModal({ activeModal, onClose, card }) {
+function ItemModal({ activeModal, onClose, isOpen, card }) {
   return (
-    <div className={`modal ${activeModal === "preview" && "modal_opened"}`}>
+    <div className={`modal ${isOpen && "modal_opened"}`}>
       <div className="modal__content modal__content_type_image ">
         <button onClick={onClose} className="modal__close" type="button">
           <img className="modal__close-icon" src={closeIcon} alt="close" />
