@@ -1,0 +1,60 @@
+.switch {
+  margin-left: 640px;
+  display: flex;
+  position: relative;
+}
+
+.switch__box {
+  border-radius: 25px;
+  border: 2px solid black;
+  width: 56px;
+  height: 28px;
+  appearance: none;
+}
+
+.switch__slider {
+  border-radius: 20px;
+  width: 28px;
+  height: 28px;
+  background-color: black;
+  cursor: pointer;
+  color: black;
+  position: absolute;
+  text-align: center;
+  transition: 0.4s;
+}
+
+.switch__slider-F {
+  left: 27px;
+}
+
+.switch__slider-C {
+  left: 1px;
+}
+
+.switch__active {
+  color: white;
+  font-family: "Cabinet Grotesk";
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.switch__temp-F {
+  color: white;
+  position: absolute;
+  top: -9px;
+  left: 37px;
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.switch__temp-C {
+  color: white;
+  position: absolute;
+  top: -9px;
+  left: 8px;
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  cursor: pointer;
+}
