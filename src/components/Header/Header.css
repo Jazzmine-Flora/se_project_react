@@ -16,6 +16,11 @@
   display: contents;
 }
 
+.header__link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .header__logo {
   margin-right: 24px;
 }
