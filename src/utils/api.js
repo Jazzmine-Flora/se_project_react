@@ -8,4 +8,34 @@ function getItems() {
   });
 }
 
+function addItem(item) {
+  return fetch(`${baseUrl}/items`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(item),
+  }).then((response) => {
+    return response.ok
+      ? response.json()
+      : Promise.reject("Error: ${response.status}");
+  });
+}
+
+function deleteItem(id) {
+  return fetch(`${baseUrl}/items/${id}`, {
+    method: "DELETE",
+  }).then((response) => {
+    return response.ok
+      ? response.json()
+      : Promise.reject("Error: ${response.status}");
+  });
+}
+
+const api = {
+  getItems,
+  addItem,
+  deleteItem,
+};
+
 export { getItems };

@@ -46,6 +46,25 @@ function App() {
     if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
   };
 
+  const handleAddItemSubmit = (item) => {
+    api
+      .addItem(item)
+      .then((data) => {
+        setClothingItems([...clothingItems, data]);
+        setActiveModal("");
+      })
+      .catch(console.error);
+  };
+
+  const handleDeleteItem = (id) => {
+    api
+      .deleteItem(id)
+      .then(() => {
+        setClothingItems(clothingItems.filter((item) => item._id !== id));
+      })
+      .catch(console.error);
+  };
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -78,10 +97,13 @@ function App() {
             <Route
               path="/"
               element={
-                clothingItems && (
+                clothingItems.length > 0 && (
                   <Main
                     weatherData={weatherData}
                     onCardClick={handleCardClick}
+                    clothingItems={clothingItems}
+                    // handleAddItemSubmit={handleAddItemSubmit}
+                    // handleDeleteItem={handleDeleteItem}
                   />
                 )
               }
@@ -105,6 +127,7 @@ function App() {
           card={selectedCard}
           onClose={handleCloseModal}
           isOpen={activeModal === "preview"}
+          // onCardClick={handleCardClick}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>
