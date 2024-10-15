@@ -1,4 +1,5 @@
-import { defaultClothingItems } from "../../utils/constants";
+// import { defaultClothingItems } from "../../utils/constants";
+import items from "../../db.json";
 import ItemCard from "../ItemCard/ItemCard";
 import "./ClothesSection.css";
 
@@ -10,7 +11,7 @@ function ClothesSection({ onCardClick }) {
         <button className="clothes-section__add-btn">+ Add New</button>
       </div>
       <ul className="clothes-section__list">
-        {defaultClothingItems.map((item) => {
+        {items.map((item) => {
           return (
             <ItemCard
               key={item._id}
