@@ -1,9 +1,10 @@
 // import { defaultClothingItems } from "../../utils/constants";
-import items from "../../db.json";
+
 import ItemCard from "../ItemCard/ItemCard";
+
 import "./ClothesSection.css";
 
-function ClothesSection({ onCardClick }) {
+function ClothesSection({ onCardClick, clothingItems }) {
   return (
     <div className="clothes-section">
       <div className="clothes-section__header">
@@ -11,14 +12,9 @@ function ClothesSection({ onCardClick }) {
         <button className="clothes-section__add-btn">+ Add New</button>
       </div>
       <ul className="clothes-section__list">
-        {items.map((item) => {
+        {clothingItems.map((item) => {
           return (
-            <ItemCard
-              key={item._id}
-              item={item}
-              // todo pass as prop
-              onCardClick={onCardClick}
-            />
+            <ItemCard key={item._id} item={item} onCardClick={onCardClick} />
           );
         })}
       </ul>
