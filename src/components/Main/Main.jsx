@@ -10,7 +10,7 @@ import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 // import "App.jsx";
 // import "./ItemCard.css";
 
-function Main({ weatherData, handleCardClick, clothingItems }) {
+function Main({ weatherData, onCardClick, clothingItems }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   console.log(currentTemperatureUnit);
   const temp = weatherData?.temperature?.[currentTemperatureUnit];
@@ -36,7 +36,7 @@ function Main({ weatherData, handleCardClick, clothingItems }) {
                 <ItemCard
                   key={item._id}
                   item={item}
-                  onCardClick={handleCardClick}
+                  onCardClick={onCardClick}
                 />
               );
             })}

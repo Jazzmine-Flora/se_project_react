@@ -13,5 +13,4 @@ function ItemCard({ item, onCardClick }) {
     </li>
   );
 }
-
 export default ItemCard;
