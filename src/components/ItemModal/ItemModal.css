@@ -40,3 +40,17 @@
   height: 20px;
   /* color: black; */
 }
+
+.modal__delete-btn {
+  display: flex;
+  cursor: pointer;
+  background-color: white;
+  border: none;
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  font-weight: 700;
+  color: orangered;
+  position: relative;
+  left: 350px;
+  bottom: 56px;
+}

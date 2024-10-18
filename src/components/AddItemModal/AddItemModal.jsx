@@ -4,8 +4,9 @@ import "./AddItemModal.css";
 
 const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onAddItem }) => {
   const [name, setName] = React.useState("");
-  const [link, setUrl] = React.useState("");
+  const [imageUrl, setUrl] = React.useState("");
   const [weather, setWeather] = React.useState("");
+
   const handleNameChange = (e) => {
     console.log(e.target.value);
     setName(e.target.value);
@@ -18,7 +19,11 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onAddItem }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onAddItem(e, { name, link });
+    onAddItem(e, { name, imageUrl, weather });
+    setName("");
+    setUrl("");
+    setWeather("");
+    handleCloseModal();
   };
 
   const handleWeatherChange = (e) => {
@@ -55,7 +60,7 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onAddItem }) => {
           id="imageUrl"
           placeholder="Image URL"
           onChange={handleUrlChange}
-          value={link}
+          value={imageUrl}
           required
         />
       </label>

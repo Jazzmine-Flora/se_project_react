@@ -126,12 +126,15 @@ function App() {
           handleCloseModal={handleCloseModal}
           isOpen={activeModal === "add-garment"}
           onAddItem={onAddItem}
+          onSubmit={handleAddItemSubmit}
         />
         <ItemModal
           // activeModal={activeModal}
           card={selectedCard}
           onClose={handleCloseModal}
           isOpen={activeModal === "preview"}
+          onDelete={handleDeleteItem}
+          // onSubmit={handleAddItemSubmit}
           // onCardClick={handleCardClick}
         />
       </CurrentTemperatureUnitContext.Provider>
