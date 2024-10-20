@@ -11,6 +11,7 @@ import { coordinates, APIkey } from "../../utils/constants";
 import Footer from "../Footer/Footer";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
+import DeleteItemModal from "../DeleteItemModal/DeleteItemModal";
 import { getItems, addItem, deleteItem } from "../../utils/api";
 
 function App() {
@@ -61,6 +62,10 @@ function App() {
         setClothingItems(clothingItems.filter((item) => item._id !== id));
       })
       .catch(console.error);
+  };
+
+  const handleOnConfirmDelete = () => {
+    handleDeleteItem(selectedCard._id);
   };
 
   useEffect(() => {
@@ -132,8 +137,14 @@ function App() {
           onClose={handleCloseModal}
           isOpen={activeModal === "preview"}
           onDelete={handleDeleteItem}
-          // onSubmit={handleAddItemSubmit}
-          // onCardClick={handleCardClick}
+          onConfirm={handleOnConfirmDelete}
+        />
+        <DeleteItemModal
+          activeModal={activeModal}
+          onConfirm={handleOnConfirmDelete}
+          onClose={handleCloseModal}
+          isOpen={activeModal === "delete"}
+          onDelete={handleDeleteItem}
         />
       </CurrentTemperatureUnitContext.Provider>
     </div>
