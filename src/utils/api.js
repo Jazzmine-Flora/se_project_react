@@ -38,4 +38,4 @@ const api = {
   deleteItem,
 };
 
-export { getItems };
+export { getItems, addItem, deleteItem };

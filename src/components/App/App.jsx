@@ -11,7 +11,7 @@ import { coordinates, APIkey } from "../../utils/constants";
 import Footer from "../Footer/Footer";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import AddItemModal from "../AddItemModal/AddItemModal";
-import { getItems } from "../../utils/api";
+import { getItems, addItem, deleteItem } from "../../utils/api";
 
 function App() {
   const [weatherData, setWeatherData] = useState({
@@ -47,8 +47,7 @@ function App() {
   };
 
   const handleAddItemSubmit = (item) => {
-    api
-      .addItem(item)
+    addItem(item)
       .then((data) => {
         setClothingItems([...clothingItems, data]);
         setActiveModal("");
@@ -57,8 +56,7 @@ function App() {
   };
 
   const handleDeleteItem = (id) => {
-    api
-      .deleteItem(id)
+    deleteItem(id)
       .then(() => {
         setClothingItems(clothingItems.filter((item) => item._id !== id));
       })
@@ -125,7 +123,7 @@ function App() {
           activeModal={activeModal}
           handleCloseModal={handleCloseModal}
           isOpen={activeModal === "add-garment"}
-          onAddItem={onAddItem}
+          onAddItem={handleAddItemSubmit}
           onSubmit={handleAddItemSubmit}
         />
         <ItemModal
