@@ -44,7 +44,7 @@ const AddItemModal = ({
       activeModal={activeModal}
       onClose={handleCloseModal}
       isOpen={isOpen}
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
     >
       <label htmlFor="name" className="modal__label">
         <p className="input__title">Name</p>
@@ -80,6 +80,7 @@ const AddItemModal = ({
             name="weather"
             onChange={handleWeatherChange}
             required
+            value="hot"
           />
           Hot
         </label>
@@ -91,6 +92,7 @@ const AddItemModal = ({
             name="weather"
             onChange={handleWeatherChange}
             required
+            value="warm"
           />
           Warm
         </label>
@@ -102,6 +104,7 @@ const AddItemModal = ({
             name="weather"
             onChange={handleWeatherChange}
             required
+            value="cold"
           />
           Cold
         </label>

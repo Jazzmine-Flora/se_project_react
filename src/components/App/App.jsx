@@ -61,11 +61,12 @@ function App() {
   };
 
   const handleOnConfirmDelete = () => {
-    deleteItem(selectedCard.id)
+    deleteItem(selectedCard._id)
       .then(() => {
         setClothingItems(
-          clothingItems.filter((item) => item.id !== selectedCard.id)
+          clothingItems.filter((item) => item._id !== selectedCard._id)
         );
+        console.log("Item deleted", clothingItems);
         setActiveModal("");
       })
       .catch(console.error);
@@ -121,6 +122,7 @@ function App() {
                   onCardClick={handleCardClick}
                   clothingItems={clothingItems}
                   onAddItem={handleAddItemSubmit}
+                  handleAddClick={handleAddClick}
                 />
               }
             />

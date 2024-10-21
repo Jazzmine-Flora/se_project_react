@@ -9,8 +9,12 @@ function DeleteItemModal({
   isOpen,
   onSubmit,
   onDelete,
-  handleOnConfirmDelete,
 }) {
+  const handleOnConfirmDelete = (e) => {
+    e.preventDefault();
+    onConfirm();
+  };
+
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
       <div className="delete-modal__content">

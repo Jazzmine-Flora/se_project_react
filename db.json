@@ -13,12 +13,6 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Hoodie.png?etag=5f52451d0958ccb1016c78a45603a4e8"
     },
     {
-      "_id": 6,
-      "name": "Jacket",
-      "weather": "cold",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Jacket.png?etag=f4bb188deaa25ac84ce2338be2d404ad"
-    },
-    {
       "_id": 8,
       "name": "Loafers",
       "weather": "warm",
@@ -73,70 +67,16 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
     },
     {
-      "name": "sdwd",
-      "imageUrl": "https://unsplash.com/photos/a-mountain-is-silhouetted-against-an-orange-sky-dgFA4gswn_4",
-      "weather": "on",
-      "_id": 17
-    },
-    {
-      "name": "erferf",
-      "imageUrl": "https://images.unsplash.com/photo-1728996152930-233c5aca21d7?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8",
-      "weather": "",
-      "_id": 18
-    },
-    {
-      "name": "sdwd",
-      "imageUrl": "https://images.unsplash.com/photo-1728996152930-233c5aca21d7?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8",
-      "weather": "on",
-      "_id": 19
-    },
-    {
-      "name": "sdwd",
-      "imageUrl": "https://images.unsplash.com/photo-1728996152930-233c5aca21d7?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8",
-      "weather": "",
-      "_id": 20
-    },
-    {
-      "name": "sdwd",
-      "imageUrl": "https://images.unsplash.com/photo-1728996152930-233c5aca21d7?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8",
-      "weather": "on",
-      "_id": 21
-    },
-    {
-      "name": "hvh",
-      "imageUrl": "https://images.unsplash.com/photo-1719937206168-f4c829152b91?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMXx8fGVufDB8fHx8fA%3D%3D",
-      "weather": "on",
-      "_id": 22
-    },
-    {
-      "name": "jhvhjvh",
-      "imageUrl": "https://images.unsplash.com/photo-1719937206168-f4c829152b91?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMXx8fGVufDB8fHx8fA%3D%3D",
-      "weather": "",
-      "_id": 23
-    },
-    {
-      "name": "sdwd",
-      "imageUrl": "https://images.unsplash.com/photo-1719937206168-f4c829152b91?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMXx8fGVufDB8fHx8fA%3D%3D",
-      "weather": "on",
-      "_id": 24
-    },
-    {
       "name": "",
       "imageUrl": "",
       "weather": "",
       "_id": 25
     },
     {
-      "name": "sdwd",
+      "name": "kjwhh",
       "imageUrl": "https://images.unsplash.com/photo-1728996152930-233c5aca21d7?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8",
-      "weather": "on",
+      "weather": "warm",
       "_id": 26
-    },
-    {
-      "name": "sdwd",
-      "imageUrl": "https://images.unsplash.com/photo-1728996152930-233c5aca21d7?w=1200&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8",
-      "weather": "",
-      "_id": 27
     }
   ]
 }
