@@ -8,6 +8,8 @@ function DeleteItemModal({
   onClose,
   isOpen,
   onSubmit,
+  onDelete,
+  handleOnConfirmDelete,
 }) {
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
@@ -19,13 +21,17 @@ function DeleteItemModal({
           <br />
         </h2>
         <button onClick={onClose} className="modal__close" type="button">
-          <img className="modal__close-icon" src={closeIcon} alt="close" />
+          <img
+            className="delete-modal__close-icon"
+            src={closeIcon}
+            alt="close"
+          />
         </button>
-        <form onSubmit={onSubmit} className="modal__form">
+        <form className="modal__form">
           <button
             className="delete-modal__submit"
             type="submit"
-            onClick={onConfirm}
+            onClick={handleOnConfirmDelete}
           >
             Yes, delete item
           </button>

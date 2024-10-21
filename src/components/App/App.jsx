@@ -38,10 +38,6 @@ function App() {
     setActiveModal("");
   };
 
-  const onAddItem = (values) => {
-    console.log(values);
-  };
-
   const handleToggleSwitchChange = () => {
     if (currentTemperatureUnit === "C") setCurrentTemperatureUnit("F");
     if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
@@ -54,6 +50,10 @@ function App() {
         setActiveModal("");
       })
       .catch(console.error);
+  };
+
+  const onAddItem = () => {
+    setActiveModal("add-garment");
   };
 
   const handleDeleteItem = (id) => {
@@ -141,7 +141,7 @@ function App() {
           onClose={handleCloseModal}
           isOpen={activeModal === "preview"}
           onDelete={handleDeleteItem}
-          onConfirm={handleOnConfirmDelete}
+          onConfirm={handleDeleteItem}
         />
         <DeleteItemModal
           activeModal={activeModal}

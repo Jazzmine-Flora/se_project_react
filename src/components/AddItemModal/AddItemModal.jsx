@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./AddItemModal.css";
 
-const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onAddItem }) => {
+const AddItemModal = ({
+  activeModal,
+  handleCloseModal,
+  isOpen,
+  onSubmit,
+  onAddItem,
+}) => {
   const [name, setName] = React.useState("");
   const [imageUrl, setUrl] = React.useState("");
   const [weather, setWeather] = React.useState("");
@@ -38,7 +44,7 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onAddItem }) => {
       activeModal={activeModal}
       onClose={handleCloseModal}
       isOpen={isOpen}
-      onSubmit={handleSubmit}
+      onSubmit={onSubmit}
     >
       <label htmlFor="name" className="modal__label">
         <p className="input__title">Name</p>

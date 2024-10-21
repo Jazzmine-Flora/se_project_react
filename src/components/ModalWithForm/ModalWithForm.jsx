@@ -21,6 +21,7 @@ function ModalWithForm({
           <button
             className="modal__submit modal__submit_disabled"
             type="submit"
+            onClick={onSubmit}
           >
             {buttonText}
           </button>
