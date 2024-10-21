@@ -9,7 +9,11 @@ function ClothesSection({ onCardClick, clothingItems, onAddItem }) {
     <div className="clothes-section">
       <div className="clothes-section__header">
         <p className="clothes-section__title">Your Items</p>
-        <button className="clothes-section__add-btn" type="button">
+        <button
+          className="clothes-section__add-btn"
+          type="button"
+          onClick={onAddItem}
+        >
           + Add New
         </button>
       </div>

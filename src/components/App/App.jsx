@@ -57,15 +57,18 @@ function App() {
   };
 
   const handleDeleteItem = (id) => {
-    deleteItem(id)
-      .then(() => {
-        setClothingItems(clothingItems.filter((item) => item._id !== id));
-      })
-      .catch(console.error);
+    setActiveModal("delete");
   };
 
   const handleOnConfirmDelete = () => {
-    handleDeleteItem(selectedCard._id);
+    deleteItem(selectedCard.id)
+      .then(() => {
+        setClothingItems(
+          clothingItems.filter((item) => item.id !== selectedCard.id)
+        );
+        setActiveModal("");
+      })
+      .catch(console.error);
   };
 
   useEffect(() => {
@@ -117,6 +120,7 @@ function App() {
                 <Profile
                   onCardClick={handleCardClick}
                   clothingItems={clothingItems}
+                  onAddItem={handleAddItemSubmit}
                 />
               }
             />
