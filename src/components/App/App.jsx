@@ -24,6 +24,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
+  const [items, setItems] = useState([]);
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -43,14 +44,22 @@ function App() {
     if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
   };
 
-  const handleAddItemSubmit = (item) => {
-    addItem(item)
-      .then((data) => {
-        setClothingItems([...clothingItems, data]);
-        setActiveModal("");
+  function handleAddItemSubmit(item) {
+    return addItem(item) // Ensure this function returns a promise
+      .then((createdItem) => {
+        setItems((prevItems) => [createdItem, ...prevItems]);
+        handleCloseModal();
       })
       .catch(console.error);
-  };
+  }
+  // const handleAddItemSubmit = (item) => {
+  //   addItem(item)
+  //     .then((createdItem) => {
+  //       setItems((prevItems) => [createdItem, ...prevItems]);
+  //       handleCloseModal();
+  //     })
+  //     .catch(console.error);
+  // };
 
   const onAddItem = () => {
     setActiveModal("add-garment");
@@ -67,7 +76,7 @@ function App() {
           clothingItems.filter((item) => item._id !== selectedCard._id)
         );
         console.log("Item deleted", clothingItems);
-        setActiveModal("");
+        handleCloseModal();
       })
       .catch(console.error);
   };
@@ -106,9 +115,10 @@ function App() {
               element={
                 clothingItems.length > 0 && (
                   <Main
+                    clothingItems={clothingItems}
                     weatherData={weatherData}
                     onCardClick={handleCardClick}
-                    clothingItems={clothingItems}
+
                     // handleAddItemSubmit={handleAddItemSubmit}
                     // handleDeleteItem={handleDeleteItem}
                   />
@@ -119,10 +129,10 @@ function App() {
               path="/profile"
               element={
                 <Profile
-                  onCardClick={handleCardClick}
-                  clothingItems={clothingItems}
                   onAddItem={handleAddItemSubmit}
                   handleAddClick={handleAddClick}
+                  onCardClick={handleCardClick}
+                  clothingItems={clothingItems}
                 />
               }
             />

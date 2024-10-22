@@ -16,9 +16,10 @@ function addItem(item) {
     },
     body: JSON.stringify(item),
   }).then((response) => {
-    return response.ok
-      ? response.json()
-      : Promise.reject("Error: ${response.status}");
+    if (response.ok) {
+      return response.json();
+    }
+    return Promise.reject(`Error: ${response.status}`);
   });
 }
 

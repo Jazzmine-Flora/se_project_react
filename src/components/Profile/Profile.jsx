@@ -10,9 +10,9 @@ function Profile({ onCardClick, clothingItems, handleAddClick }) {
       </section>
       <section className="profile__content">
         <ClothesSection
+          onAddItem={handleAddClick}
           onCardClick={onCardClick}
           clothingItems={clothingItems}
-          onAddItem={handleAddClick}
         />
       </section>
     </div>
