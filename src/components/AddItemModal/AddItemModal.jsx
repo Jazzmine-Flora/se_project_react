@@ -13,6 +13,12 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
     setName(e.target.value);
   };
 
+  const resetForm = () => {
+    setName("");
+    setUrl("");
+    setWeather("");
+  };
+
   const handleUrlChange = (e) => {
     console.log(e.target.value);
     setUrl(e.target.value);
@@ -21,16 +27,7 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newItem = { name, imageUrl, weather };
-    onSubmit(newItem)
-      .then(() => {
-        setName("");
-        setUrl("");
-        setWeather("");
-        handleCloseModal();
-      })
-      .catch((error) => {
-        console.error("Error submitting the form: ", error);
-      });
+    onSubmit(newItem, resetForm);
   };
 
   const handleWeatherChange = (e) => {

@@ -44,10 +44,11 @@ function App() {
     if (currentTemperatureUnit === "F") setCurrentTemperatureUnit("C");
   };
 
-  function handleAddItemSubmit(item) {
+  function handleAddItemSubmit(item, resetForm) {
     return addItem(item) // Ensure this function returns a promise
       .then((createdItem) => {
-        setItems((prevItems) => [createdItem, ...prevItems]);
+        setClothingItems((prevItems) => [createdItem, ...prevItems]);
+        resetForm();
         handleCloseModal();
       })
       .catch(console.error);
