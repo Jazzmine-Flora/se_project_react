@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
-import { addItem } from "../../utils/api";
+import { api } from "../../utils/api";
 import "./AddItemModal.css";
 
 const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {

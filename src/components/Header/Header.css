@@ -4,6 +4,12 @@
   padding: 32px 0 28px;
 }
 
+.header__buttons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
 .header__text {
   margin: 0;
   font-family: "Cabinet Grotesk";

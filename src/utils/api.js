@@ -1,36 +1,56 @@
 const baseUrl = "http://localhost:3001";
 
-function checkResponse(response) {
-  if (response.ok) {
-    return response.json();
+class Api {
+  constructor({ baseUrl }) {
+    this._baseUrl = baseUrl;
   }
-  return Promise.reject(`Error: ${response.status}`);
-}
 
-function getItems() {
-  return fetch(`${baseUrl}/items`).then(checkResponse);
-}
-
-function addItem(item) {
-  return fetch(`${baseUrl}/items`, {
-    method: "POST",
-    headers: {
+  _getHeaders() {
+    const jwt = localStorage.getItem("jwt");
+    return {
       "Content-Type": "application/json",
-    },
-    body: JSON.stringify(item),
-  }).then(checkResponse);
+      authorization: `Bearer ${jwt}`,
+    };
+  }
+  getItems() {
+    return fetch(`${this._baseUrl}/items`, {
+      headers: this._getHeaders(),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+  addItem(item) {
+    return fetch(`${this._baseUrl}/items`, {
+      method: "POST",
+      headers: this._getHeaders(),
+      body: JSON.stringify(item),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
+  deleteItem(id) {
+    return fetch(`${this._baseUrl}/items/${id}`, {
+      method: "DELETE",
+      headers: this._getHeaders(),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
 }
 
-function deleteItem(id) {
-  return fetch(`${baseUrl}/items/${id}`, {
-    method: "DELETE",
-  }).then(checkResponse);
-}
+// Create an instance of the Api class
+const api = new Api({
+  baseUrl: baseUrl,
+});
 
-const api = {
-  getItems,
-  addItem,
-  deleteItem,
-};
-
-export { getItems, addItem, deleteItem };
+export { api, baseUrl };

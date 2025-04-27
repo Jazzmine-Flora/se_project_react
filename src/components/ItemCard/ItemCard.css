@@ -5,13 +5,34 @@
   justify-content: center;
 }
 
-/* .cards__list {
-  display: grid;
-  justify-content: center;
-  grid-template-columns: repeat(auto-fit, 328px);
-  grid-gap: 20px;
+.item-card__controls {
+  position: relative;
+  top: 20px;
+  right: 120px;
+  display: flex;
+  gap: 10px;
+  /* border: 1px solid red; */
+  margin-left: 10px;
+}
+
+.item-card__like-button {
+  width: 21px;
+  height: 18px;
+  background: transparent url(../../assets/like-active.svg) center no-repeat;
+  border: none;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.6);
   padding: 0;
-  margin: 0;
+  transition: opacity 0.3s ease;
+  position: relative;
+}
+
+.item-card__like-button:hover {
+  opacity: 0.5;
+}
+
+/* .item-card__like-button_active {
+  background-image: url(../images/like-active.svg);
 } */
 
 .item-card__image {
@@ -24,7 +45,7 @@
 
 .item-card__title {
   position: absolute;
-  /* margin-left: 125px; */
+  margin-left: 125px;
   margin-top: 15px;
   font-family: "Cabinet Grotesk";
   font-size: 16px;
@@ -32,7 +53,7 @@
   line-height: 20px;
   background: #ffffff;
   border-radius: 5px;
-  color: #000000;
+  color: rgba(0, 0, 0, 0.6);
   opacity: 0.5;
   padding: 5px;
 }

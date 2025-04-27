@@ -5,11 +5,20 @@ import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
-function Header({ handleAddClick, weatherData }) {
+function Header({
+  handleAddClick,
+  weatherData,
+  isLoggedIn,
+  onLoginClick = { handleLogin },
+  currentUser,
+  onLogout, // Add a comma here
+  onSignupClick, // Move this inside the props object
+}) {
   const currentDate = new Date().toLocaleString("default", {
     month: "long",
     day: "numeric",
   });
+
   return (
     <header className="header">
       <Link to="/">
@@ -21,19 +30,36 @@ function Header({ handleAddClick, weatherData }) {
       </p>
 
       <ToggleSwitch />
-      <button
-        onClick={handleAddClick}
-        type="button"
-        className="header__add-clothes-btn"
-      >
-        + Add clothes
-      </button>
-      <Link to="/profile" className="header__link">
-        <div className="header__user">
-          <p className="header__username">Terrence Tegegne</p>
-          <img src={avatar} alt="Terrence Tegegne" className="header__avatar" />
+
+      {isLoggedIn ? (
+        <>
+          <button
+            onClick={handleAddClick}
+            type="button"
+            className="header__add-clothes-btn"
+          >
+            + Add clothes
+          </button>
+          <Link to="/profile" className="header__link">
+            <div className="header__user">
+              <p className="header__username">{currentUser?.name || "User"}</p>
+              <img src={avatar} alt="User avatar" className="header__avatar" />
+            </div>
+          </Link>
+          <button className="header__button" onClick={onLogout}>
+            Log out
+          </button>
+        </>
+      ) : (
+        <div className="header__buttons">
+          <button className="header__button" onClick={onSignupClick}>
+            Sign up
+          </button>
+          <button className="header__button" onClick={onLoginClick}>
+            Log in
+          </button>
         </div>
-      </Link>
+      )}
     </header>
   );
 }
