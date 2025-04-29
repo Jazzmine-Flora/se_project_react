@@ -57,3 +57,13 @@
   align-items: center;
   gap: 12px;
 }
+
+.header__button {
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  border: none;
+  margin-left: 20px;
+  background-color: transparent;
+}

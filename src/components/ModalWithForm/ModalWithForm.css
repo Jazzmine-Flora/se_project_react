@@ -13,6 +13,7 @@
 
 .modal_opened {
   visibility: visible;
+  z-index: 1000;
 }
 
 .modal__title {

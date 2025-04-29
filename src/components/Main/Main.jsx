@@ -17,6 +17,7 @@ function Main({
   onCardLike,
   isLoggedIn,
   currentUser,
+  onDelete,
 }) {
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   console.log(currentTemperatureUnit);
@@ -47,6 +48,7 @@ function Main({
                   isLoggedIn={isLoggedIn}
                   onCardLike={onCardLike}
                   currentUser={currentUser}
+                  onDelete={onDelete}
                 />
               );
             })}

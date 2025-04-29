@@ -46,6 +46,17 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+  toggleCardLike(cardId, isLiked) {
+    return fetch(`${this._baseUrl}/items/${cardId}/likes`, {
+      method: isLiked ? "DELETE" : "PUT",
+      headers: this._getHeaders(),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
 }
 
 // Create an instance of the Api class
@@ -53,4 +64,4 @@ const api = new Api({
   baseUrl: baseUrl,
 });
 
-export { api, baseUrl };
+export { Api, api, baseUrl };

@@ -9,10 +9,25 @@ function DeleteItemModal({
   isOpen,
   onSubmit,
   onDelete,
+  selectedCard, // Add this line to receive the selected card
 }) {
+  console.log("DeleteItemModal received selectedCard:", selectedCard);
   const handleOnConfirmDelete = (e) => {
     e.preventDefault();
-    onConfirm();
+    console.log("Attempting to delete card:", selectedCard);
+    console.log("Selected card ID:", selectedCard?._id);
+
+    if (!selectedCard) {
+      console.error("No selected card found");
+      return;
+    }
+
+    if (!selectedCard._id) {
+      console.error("Selected card has no ID");
+      return;
+    }
+
+    onConfirm(selectedCard._id);
   };
 
   return (
