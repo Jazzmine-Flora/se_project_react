@@ -11,24 +11,19 @@ function DeleteItemModal({
   onDelete,
   selectedCard, // Add this line to receive the selected card
 }) {
+  console.log("DeleteItemModal props:", { activeModal, isOpen, selectedCard });
   console.log("DeleteItemModal received selectedCard:", selectedCard);
   const handleOnConfirmDelete = (e) => {
     e.preventDefault();
-    console.log("Attempting to delete card:", selectedCard);
-    console.log("Selected card ID:", selectedCard?._id);
-
-    if (!selectedCard) {
-      console.error("No selected card found");
-      return;
+    console.log("Attempting to delete card:", selectedCard); // Add this line
+    if (selectedCard && selectedCard._id) {
+      onConfirm(selectedCard._id);
+    } else {
+      console.error("No selected card or card ID");
     }
-
-    if (!selectedCard._id) {
-      console.error("Selected card has no ID");
-      return;
-    }
-
-    onConfirm(selectedCard._id);
   };
+
+  console.log("DeleteItemModal selectedCard ID:", selectedCard?._id);
 
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
@@ -49,7 +44,7 @@ function DeleteItemModal({
         <form className="modal__form">
           <button
             className="delete-modal__submit"
-            type="submit"
+            type="button"
             onClick={handleOnConfirmDelete}
           >
             Yes, delete item

@@ -2,14 +2,7 @@ import "./ItemCard.css";
 import likeActive from "../../assets/like-active.svg";
 import likeInactive from "../../assets/like-inactive.svg";
 
-function ItemCard({
-  item,
-  onCardClick,
-  currentUser,
-  onCardLike,
-  isLoggedIn,
-  onDelete,
-}) {
+function ItemCard({ item, onCardClick, currentUser, onCardLike, isLoggedIn }) {
   function handleCardClick() {
     onCardClick(item);
   }
@@ -21,10 +14,10 @@ function ItemCard({
     console.log("isLoggedIn status:", isLoggedIn);
     onCardLike(item);
   }
-  function handleDelete() {
-    console.log("Delete button clicked");
-    onDelete(item);
-  }
+  // function handleDelete() {
+  //   console.log("Delete button clicked");
+  //   onDelete(item);
+  // }
   console.log(item);
   console.log("Current item liked status:", item.isLiked);
   console.log("Full item data:", item);

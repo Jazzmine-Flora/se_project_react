@@ -49,8 +49,9 @@ function App() {
       auth
         .checkToken(jwt)
         .then((res) => {
+          console.log("Token validation response:", res);
           setIsLoggedIn(true);
-          setCurrentUser(res);
+          setCurrentUser(res.data);
           authenticatedUser = res; // Save the user data
           return api.getItems();
         })
@@ -58,7 +59,9 @@ function App() {
           if (data) {
             const itemsWithLikedProperty = data.map((item) => ({
               ...item,
-              isLiked: item.likes.some((id) => id === authenticatedUser._id), // Use saved user data
+              isLiked: item.likes.some(
+                (id) => id === authenticatedUser.data._id
+              ), // Use saved user data
             }));
             setClothingItems(itemsWithLikedProperty);
           }
@@ -151,12 +154,17 @@ function App() {
   };
 
   const handleDeleteItem = (card) => {
-    console.log("Card ID in handleDeleteItem:", card._id);
+    console.log("handleDeleteItem called with card:", card);
+    if (!card || !card._id) {
+      // console.error("Invalid card data received:", card);
+      return;
+    }
     setSelectedCard(card);
     setActiveModal("delete");
   };
 
   const handleOnConfirmDelete = (id) => {
+    console.log("Deleting item with ID:", id); // Add this line
     api
       .deleteItem(id)
       .then(() => {
@@ -167,32 +175,34 @@ function App() {
   };
   const handleCardLike = async (card) => {
     try {
-      console.log("handleCardLike called with card:", card);
-      console.log("Current user state:", currentUser);
-      console.log("isLoading state:", isLoading);
       if (isLoading) {
-        console.log("Still loading user data...");
         return;
       }
-      // First, make sure we have the current user
       if (!currentUser?._id) {
         console.error("No current user found");
         return;
       }
 
-      // Make sure the card has a likes array
       const cardLikes = card.likes || [];
       const isLiked = cardLikes.some((id) => id === currentUser._id);
 
       const response = await api.toggleCardLike(card._id, isLiked);
+      console.log("Like response:", response); // Add this line to debug
 
       if (response) {
         setClothingItems((items) =>
           items.map((item) => {
             if (item._id === card._id) {
+              // Check if response.data exists, otherwise fall back to response
+              const updatedLikes = response.data
+                ? response.data.likes
+                : response.likes;
               return {
-                ...response,
-                isLiked: response.likes.some((id) => id === currentUser._id),
+                ...item,
+                likes: updatedLikes || [],
+                isLiked: (updatedLikes || []).some(
+                  (id) => id === currentUser._id
+                ),
               };
             }
             return item;
@@ -347,7 +357,6 @@ function App() {
             onClose={handleCloseModal}
             isOpen={activeModal === "preview"}
             onDelete={handleDeleteItem}
-            onConfirm={handleDeleteItem}
           />
           <DeleteItemModal
             activeModal={activeModal}
