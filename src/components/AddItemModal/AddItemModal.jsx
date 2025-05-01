@@ -7,6 +7,11 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
   const [name, setName] = React.useState("");
   const [imageUrl, setUrl] = React.useState("");
   const [weather, setWeather] = React.useState("");
+  // const [formData, setFormData] = useState({
+  //   name: "",
+  //   description: "",
+  //   // other fields...
+  // });
 
   const handleNameChange = (e) => {
     console.log(e.target.value);

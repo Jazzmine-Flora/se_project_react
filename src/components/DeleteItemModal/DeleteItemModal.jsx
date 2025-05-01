@@ -17,7 +17,6 @@ function DeleteItemModal({
     e.preventDefault();
     console.log("Attempting to delete card:", selectedCard); // Add this line
     if (selectedCard && selectedCard._id) {
-      onConfirm(selectedCard._id);
     } else {
       console.error("No selected card or card ID");
     }

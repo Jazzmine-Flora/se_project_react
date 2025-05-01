@@ -144,6 +144,7 @@ function App() {
           isLiked: false,
         };
         setClothingItems([newItemWithLiked, ...clothingItems]);
+
         handleCloseModal();
       })
       .catch(console.error);
@@ -153,22 +154,19 @@ function App() {
     setActiveModal("add-garment");
   };
 
-  const handleDeleteItem = (card) => {
-    console.log("handleDeleteItem called with card:", card);
-    if (!card || !card._id) {
-      // console.error("Invalid card data received:", card);
-      return;
-    }
-    setSelectedCard(card);
+  const handleDeleteItem = () => {
+    console.log("Deleting item:", selectedCard);
     setActiveModal("delete");
   };
 
-  const handleOnConfirmDelete = (id) => {
-    console.log("Deleting item with ID:", id); // Add this line
+  const handleOnConfirmDelete = (_id) => {
+    console.log("Deleting item with ID:", selectedCard._id); // Add this line
     api
-      .deleteItem(id)
+      .deleteItem(selectedCard._id)
       .then(() => {
-        setClothingItems((state) => state.filter((c) => c._id !== id));
+        setClothingItems((state) =>
+          state.filter((c) => c._id !== selectedCard._id)
+        );
         setActiveModal("");
       })
       .catch(console.error);
@@ -363,8 +361,7 @@ function App() {
             onConfirm={handleOnConfirmDelete}
             onClose={handleCloseModal}
             isOpen={activeModal === "delete"}
-            onDelete={handleDeleteItem}
-            selectedCard={selectedCard} // Add this line
+            selectedCard={selectedCard}
           />
         </CurrentTemperatureUnitContext.Provider>
       </div>

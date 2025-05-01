@@ -3,6 +3,7 @@
   height: 610px;
   border-radius: 15px;
   background-color: white;
+  overflow: hidden;
 }
 
 .modal__footer {
@@ -21,7 +22,7 @@
   height: 498px;
   object-fit: cover;
   object-position: center;
-  border-radius: 15px;
+
   font-weight: 700;
   /* position: relative; */
 }
