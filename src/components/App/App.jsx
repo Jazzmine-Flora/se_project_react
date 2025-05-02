@@ -31,6 +31,7 @@ function App() {
   });
   const [activeModal, setActiveModal] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
+  console.log("App - selectedCard state:", selectedCard);
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F");
   const [clothingItems, setClothingItems] = useState([]);
   const [items, setItems] = useState([]);
@@ -154,13 +155,16 @@ function App() {
     setActiveModal("add-garment");
   };
 
-  const handleDeleteItem = () => {
-    console.log("Deleting item:", selectedCard);
+  const handleDeleteItem = (card) => {
+    console.log("Deleting item:", card);
+    setSelectedCard(card); // Store the entire card object
     setActiveModal("delete");
   };
-
-  const handleOnConfirmDelete = (_id) => {
-    console.log("Deleting item with ID:", selectedCard._id); // Add this line
+  const handleOnConfirmDelete = () => {
+    if (!selectedCard?._id) {
+      console.error("No selected card ID found");
+      return;
+    } // Add this line
     api
       .deleteItem(selectedCard._id)
       .then(() => {
@@ -347,7 +351,7 @@ function App() {
             activeModal={activeModal}
             handleCloseModal={handleCloseModal}
             isOpen={activeModal === "add-garment"}
-            onAddItem={handleAddItemSubmit}
+            // onAddItem={handleAddItemSubmit}
             onSubmit={handleAddItemSubmit}
           />
           <ItemModal

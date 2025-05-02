@@ -24,7 +24,7 @@
   object-position: center;
 
   font-weight: 700;
-  /* position: relative; */
+  position: relative;
 }
 
 .modal__weather {

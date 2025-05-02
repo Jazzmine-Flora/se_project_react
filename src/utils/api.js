@@ -36,23 +36,15 @@ class Api {
   }
 
   deleteItem(id) {
-    if (!id) {
-      console.error("Invalid ID provided for deletion:", id);
-      return Promise.reject("Invalid ID");
-    }
-
-    console.log("Deleting item with ID:", id);
-    console.log(
-      "Authorization Header:",
-      `Bearer ${localStorage.getItem("jwt")}`
-    );
     return fetch(`${this._baseUrl}/items/${id}`, {
       method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-        "Content-Type": "application/json",
-      },
-    }).then(this._checkResponse);
+      headers: this._getHeaders(),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
   }
 
   toggleCardLike(cardId, isLiked) {

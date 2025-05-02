@@ -7,8 +7,6 @@ function DeleteItemModal({
   onConfirm,
   onClose,
   isOpen,
-  onSubmit,
-  onDelete,
   selectedCard, // Add this line to receive the selected card
 }) {
   console.log("DeleteItemModal props:", { activeModal, isOpen, selectedCard });
@@ -17,6 +15,7 @@ function DeleteItemModal({
     e.preventDefault();
     console.log("Attempting to delete card:", selectedCard); // Add this line
     if (selectedCard && selectedCard._id) {
+      onConfirm(selectedCard._id); // Pass the card ID to the onConfirm function
     } else {
       console.error("No selected card or card ID");
     }

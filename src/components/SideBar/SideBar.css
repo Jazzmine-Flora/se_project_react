@@ -18,3 +18,43 @@
   width: 157px;
   height: 25px;
 }
+
+.sidebar__nav-container {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.sidebar__nav-item {
+  display: flex;
+  flex-direction: colomn;
+}
+
+.sidebar__nav-link {
+  text-decoration: none;
+  color: black;
+  font-family: Cabinet Grotesk;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+  background-color: transparent;
+  border: none;
+}
+
+.sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.sidebar__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+  padding: 0;
+}
