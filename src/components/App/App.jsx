@@ -54,8 +54,8 @@ function App() {
         .then((res) => {
           console.log("Token validation response:", res);
           setIsLoggedIn(true);
-          setCurrentUser(res.data);
-          authenticatedUser = res; // Save the user data
+          setCurrentUser(res.data); // Make sure res.data contains the full user object
+          authenticatedUser = res.data; // Save the user data
           return api.getItems();
         })
         .then((data) => {
@@ -91,16 +91,16 @@ function App() {
     setIsEditProfileModalOpen(true);
   };
 
-  const handleUpdateProfile = (updatedData) => {
-    api
-      .updateProfile(updatedData)
-      .then((res) => {
-        setCurrentUser(res.data);
-        setIsEditProfileModalOpen(false);
-      })
-      .catch((error) => {
-        console.error("Error updating profile:", error);
-      });
+  const handleUpdateProfile = async (updatedData) => {
+    try {
+      console.log("Updating profile with:", updatedData);
+      const response = await api.updateProfile(updatedData);
+      console.log("Profile update response:", response);
+      setCurrentUser(response); // The API response should be the updated user object
+      setIsEditProfileModalOpen(false);
+    } catch (error) {
+      console.error("Error updating profile:", error);
+    }
   };
 
   const handleLogin = () => {

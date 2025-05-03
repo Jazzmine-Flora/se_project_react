@@ -11,3 +11,7 @@
   flex-direction: column;
   gap: 24px;
 }
+
+/* .modal__content {
+  max-height: 500px;
+} */

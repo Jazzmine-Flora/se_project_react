@@ -13,35 +13,39 @@ const EditProfileModal = ({
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
   const isFormValid = name.length > 0 && avatar.length > 0;
+
   const resetForm = () => {
-    console.log("Resetting form...");
     setName("");
     setAvatar("");
   };
 
-  const handleClose = () => {
-    onClose();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log("Submitting form with values:", { name, avatar });
+    try {
+      await updateCurrentUser({ name, avatar });
+      console.log("Update successful");
+      onClose();
+    } catch (error) {
+      console.error("Error updating user:", error);
+    }
   };
+
+  // Remove handleClose function as it's redundant
 
   useEffect(() => {
     if (isOpen && currentUser) {
+      console.log("Current user in modal:", currentUser);
       setName(currentUser.name || "");
       setAvatar(currentUser.avatar || "");
-    } else if (!isOpen) {
-      setName("");
-      setAvatar("");
     }
-  }, [isOpen]);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    updateCurrentUser({ name, avatar });
-  };
+  }, [isOpen, currentUser]);
 
   return (
     <ModalWithForm
       title="Change profile data"
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={onClose} // Use onClose directly
       buttonText="Save"
       onSubmit={handleSubmit}
       isValid={isFormValid}
@@ -69,10 +73,6 @@ const EditProfileModal = ({
           required
         />
       </label>
-
-      {/* <button className="modal__submit modal__submit_disabled" type="submit">
-        Save
-      </button> */}
     </ModalWithForm>
   );
 };
