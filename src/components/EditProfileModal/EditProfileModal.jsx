@@ -1,34 +1,50 @@
 import { useState, useContext, useEffect } from "react";
-import ModalWithForm from "./ModalWithForm";
-import CurrentUserContext from "../contexts/CurrentUserContext";
+import ModalWithForm from "../ModalWithForm/ModalWithForm";
+import "./EditProfileModal.css";
 
-const EditProfileModal = ({ isOpen, onClose }) => {
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+
+const EditProfileModal = ({
+  isOpen,
+  onClose,
+  currentUser,
+  updateCurrentUser,
+}) => {
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
+  const isFormValid = name.length > 0 && avatar.length > 0;
+  const resetForm = () => {
+    console.log("Resetting form...");
+    setName("");
+    setAvatar("");
+  };
 
-  const { currentUser, updateCurrentUser } = useContext(CurrentUserContext);
+  const handleClose = () => {
+    onClose();
+  };
 
-  // Pre-fill form with current user data when modal opens
   useEffect(() => {
-    if (currentUser) {
-      setName(currentUser.name);
-      setAvatar(currentUser.avatar);
+    if (isOpen && currentUser) {
+      setName(currentUser.name || "");
+      setAvatar(currentUser.avatar || "");
+    } else if (!isOpen) {
+      setName("");
+      setAvatar("");
     }
-  }, [currentUser]);
-
-  // Handle form submission
+  }, [isOpen]);
   const handleSubmit = (e) => {
     e.preventDefault();
     updateCurrentUser({ name, avatar });
-    onClose();
   };
 
   return (
     <ModalWithForm
       title="Change profile data"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={handleClose}
+      buttonText="Save"
       onSubmit={handleSubmit}
+      isValid={isFormValid}
     >
       <label className="modal__label">
         Name*
@@ -53,6 +69,10 @@ const EditProfileModal = ({ isOpen, onClose }) => {
           required
         />
       </label>
+
+      {/* <button className="modal__submit modal__submit_disabled" type="submit">
+        Save
+      </button> */}
     </ModalWithForm>
   );
 };

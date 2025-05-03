@@ -1,0 +1,13 @@
+.modal__label {
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}

@@ -22,6 +22,20 @@ class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  updateProfile({ name, avatar }) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this._getHeaders(),
+      body: JSON.stringify({ name, avatar }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    });
+  }
+
   addItem(item) {
     return fetch(`${this._baseUrl}/items`, {
       method: "POST",

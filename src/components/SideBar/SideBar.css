@@ -30,7 +30,7 @@
 
 .sidebar__nav-item {
   display: flex;
-  flex-direction: colomn;
+  /* flex-direction: column; */
 }
 
 .sidebar__nav-link {
@@ -42,6 +42,7 @@
   line-height: 24px;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 .sidebar__nav {

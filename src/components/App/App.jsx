@@ -21,6 +21,7 @@ import { register } from "../../utils/auth";
 import { CurrentUserProvider } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute";
 import { useNavigate } from "react-router-dom";
+import EditProfileModal from "../EditProfileModal/EditProfileModal";
 
 function App() {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
 
   const checkToken = () => {
     const jwt = localStorage.getItem("jwt");
@@ -84,6 +86,22 @@ function App() {
   useEffect(() => {
     checkToken();
   }, []);
+
+  const handleEditProfile = () => {
+    setIsEditProfileModalOpen(true);
+  };
+
+  const handleUpdateProfile = (updatedData) => {
+    api
+      .updateProfile(updatedData)
+      .then((res) => {
+        setCurrentUser(res.data);
+        setIsEditProfileModalOpen(false);
+      })
+      .catch((error) => {
+        console.error("Error updating profile:", error);
+      });
+  };
 
   const handleLogin = () => {
     setIsLoginModalOpen(true);
@@ -155,9 +173,8 @@ function App() {
     setActiveModal("add-garment");
   };
 
-  const handleDeleteItem = (card) => {
-    console.log("Deleting item:", card);
-    setSelectedCard(card); // Store the entire card object
+  const handleDeleteItem = () => {
+    // Store the entire card object
     setActiveModal("delete");
   };
   const handleOnConfirmDelete = () => {
@@ -339,6 +356,7 @@ function App() {
                       onCardClick={handleCardClick}
                       clothingItems={clothingItems}
                       onCardLike={handleCardLike}
+                      onEditProfile={handleEditProfile}
                     />
                   </ProtectedRoute>
                 }
@@ -366,6 +384,12 @@ function App() {
             onClose={handleCloseModal}
             isOpen={activeModal === "delete"}
             selectedCard={selectedCard}
+          />
+          <EditProfileModal
+            isOpen={isEditProfileModalOpen}
+            onClose={() => setIsEditProfileModalOpen(false)}
+            updateCurrentUser={handleUpdateProfile}
+            currentUser={currentUser}
           />
         </CurrentTemperatureUnitContext.Provider>
       </div>
