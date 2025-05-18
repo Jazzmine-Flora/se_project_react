@@ -55,7 +55,7 @@ function App() {
             throw new Error("No response from token validation");
           }
           setIsLoggedIn(true);
-          setCurrentUser(res); // Store the entire response
+          setCurrentUser(res.data); // Store the entire response
           return api.getItems();
         })
         .then((data) => {
@@ -115,6 +115,7 @@ function App() {
           console.log("Token received:", data.token);
           localStorage.setItem("jwt", data.token);
           checkToken();
+          console.log("Current user after login:", currentUser);
           setIsLoginModalOpen(false);
         } else {
           console.error("No token in response:", data);
@@ -183,10 +184,29 @@ function App() {
     setActiveModal("delete");
   };
   const handleOnConfirmDelete = () => {
+    const jwt = localStorage.getItem("jwt");
+    if (!jwt) {
+      console.error("No JWT token found");
+      return;
+    }
+
+    if (!currentUser) {
+      console.error("No current user found");
+      return;
+    }
+
     if (!selectedCard?._id) {
       console.error("No selected card ID found");
       return;
-    } // Add this line
+    }
+
+    // Add these debug logs
+    console.log("Attempting to delete card:", {
+      cardId: selectedCard._id,
+      cardOwner: selectedCard.owner,
+      currentUserId: currentUser._id,
+    });
+
     api
       .deleteItem(selectedCard._id)
       .then(() => {
@@ -195,8 +215,11 @@ function App() {
         );
         setActiveModal("");
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Delete error details:", error);
+      });
   };
+
   const handleCardLike = async (card) => {
     try {
       if (isLoading) {
@@ -251,24 +274,22 @@ function App() {
   console.log(currentTemperatureUnit);
 
   useEffect(() => {
-    if (!isLoading && currentUser?._id) {
-      // Only proceed when not loading and we have a user
-      console.log("Loading items for user:", currentUser._id);
-      api
-        .getItems()
-        .then((data) => {
-          console.log("Received items:", data);
-          const itemsWithLikedProperty = data.map((item) => ({
-            ...item,
-            isLiked: item.likes.some((id) => id === currentUser._id),
-          }));
-          setClothingItems(itemsWithLikedProperty);
-        })
-        .catch((error) => {
-          console.error("Error loading items:", error);
-        });
-    }
-  }, [currentUser, isLoading]);
+    api
+      .getItems()
+      .then((data) => {
+        console.log("Received items:", data);
+        const itemsWithLikedProperty = data.map((item) => ({
+          ...item,
+          isLiked: currentUser
+            ? item.likes.some((id) => id === currentUser._id)
+            : false,
+        }));
+        setClothingItems(itemsWithLikedProperty);
+      })
+      .catch((error) => {
+        console.error("Error loading items:", error);
+      });
+  }, [currentUser]);
 
   console.log("Render state:", {
     isLoading,

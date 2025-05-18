@@ -47,7 +47,7 @@ const EditProfileModal = ({
       isOpen={isOpen}
       onClose={onClose} // Use onClose directly
       buttonText="Save"
-      onSubmit={handleSubmit}
+      handleSubmit={handleSubmit}
       isValid={isFormValid}
     >
       <label className="modal__label">

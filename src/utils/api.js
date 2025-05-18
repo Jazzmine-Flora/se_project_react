@@ -7,10 +7,12 @@ class Api {
 
   _getHeaders() {
     const jwt = localStorage.getItem("jwt");
-    return {
+    const headers = {
       "Content-Type": "application/json",
       authorization: `Bearer ${jwt}`,
     };
+    console.log("Request headers:", headers);
+    return headers;
   }
   getItems() {
     return fetch(`${this._baseUrl}/items`, {
