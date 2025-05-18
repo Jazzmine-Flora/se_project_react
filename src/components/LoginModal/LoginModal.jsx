@@ -32,7 +32,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
       isOpen={isOpen}
       onClose={handleCloseModal}
       onOverlayClick={handleCloseModal}
-      onSubmit={handleSubmit}
+      handleSubmit={handleSubmit}
     >
       <label className="modal__label">
         Email*
