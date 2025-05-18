@@ -10,7 +10,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrorMessage("");
-
+    console.log("LoginModal - Attempting to login with:", { email, password });
     onLogin({ email, password }) // Use the onLogin prop instead of direct login
       .catch((err) => {
         setErrorMessage("Invalid email or password");

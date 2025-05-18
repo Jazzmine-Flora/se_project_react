@@ -47,30 +47,28 @@ function App() {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
       setIsLoading(true);
-      let authenticatedUser = null; // Store the user data
-
       auth
         .checkToken(jwt)
         .then((res) => {
           console.log("Token validation response:", res);
+          if (!res) {
+            throw new Error("No response from token validation");
+          }
           setIsLoggedIn(true);
-          setCurrentUser(res.data); // Make sure res.data contains the full user object
-          authenticatedUser = res.data; // Save the user data
+          setCurrentUser(res); // Store the entire response
           return api.getItems();
         })
         .then((data) => {
           if (data) {
             const itemsWithLikedProperty = data.map((item) => ({
               ...item,
-              isLiked: item.likes.some(
-                (id) => id === authenticatedUser.data._id
-              ), // Use saved user data
+              isLiked: item.likes.some((id) => id === currentUser?._id),
             }));
             setClothingItems(itemsWithLikedProperty);
           }
         })
         .catch((err) => {
-          console.error("Error in checkToken:", err);
+          console.error("Token validation failed:", err);
           localStorage.removeItem("jwt");
           setIsLoggedIn(false);
           setCurrentUser(null);
@@ -83,6 +81,7 @@ function App() {
       setIsLoading(false);
     }
   };
+
   useEffect(() => {
     checkToken();
   }, []);
@@ -107,17 +106,23 @@ function App() {
     setIsLoginModalOpen(true);
   };
   const handleLoginSubmit = ({ email, password }) => {
+    console.log("Starting login process with email:", email);
     return auth
       .login({ email, password })
       .then((data) => {
+        console.log("Login response data:", data);
         if (data.token) {
+          console.log("Token received:", data.token);
           localStorage.setItem("jwt", data.token);
           checkToken();
-          setIsLoginModalOpen(false); // This should close the modal
+          setIsLoginModalOpen(false);
+        } else {
+          console.error("No token in response:", data);
         }
       })
       .catch((err) => {
-        console.error(err);
+        console.error("Login error:", err);
+        // You might want to show this error to the user
       });
   };
 
@@ -317,7 +322,7 @@ function App() {
                   />
                 }
               />
-              {/* <Route
+              <Route
                 path="/signin"
                 element={
                   <LoginModal
@@ -326,7 +331,7 @@ function App() {
                     onLogin={handleLoginSubmit}
                   />
                 }
-              /> */}
+              />
               <Route
                 path="/"
                 element={
