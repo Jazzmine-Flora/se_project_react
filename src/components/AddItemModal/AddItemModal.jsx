@@ -31,12 +31,21 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("Form submitted with values:", { name, imageUrl, weather });
+
+    // Check if all required fields are filled
+    if (!name || !imageUrl || !weather) {
+      console.log("Missing required fields:", { name, imageUrl, weather });
+      return;
+    }
+
     const newItem = { name, imageUrl, weather };
-    onSubmit(newItem, resetForm);
+    console.log("Submitting new item:", newItem);
+    onSubmit(newItem);
   };
 
   const handleWeatherChange = (e) => {
-    console.log(e.target.value);
+    console.log("Weather selected:", e.target.value);
     setWeather(e.target.value);
   };
 
