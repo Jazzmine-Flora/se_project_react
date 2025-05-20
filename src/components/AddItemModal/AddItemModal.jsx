@@ -1,17 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { api } from "../../utils/api";
 import "./AddItemModal.css";
 
 const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
+  console.log("AddItemModal props:", {
+    activeModal,
+    handleCloseModal,
+    isOpen,
+    onSubmit,
+  });
   const [name, setName] = React.useState("");
   const [imageUrl, setUrl] = React.useState("");
   const [weather, setWeather] = React.useState("");
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   description: "",
-  //   // other fields...
-  // });
 
   const handleNameChange = (e) => {
     console.log(e.target.value);
@@ -30,24 +31,43 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
   };
 
   const handleSubmit = (e) => {
+    console.log("AddItemModal - handleSubmit triggered");
     e.preventDefault();
-    console.log("Form submitted with values:", { name, imageUrl, weather });
+
+    console.log("Form values before validation:", { name, imageUrl, weather });
 
     // Check if all required fields are filled
     if (!name || !imageUrl || !weather) {
-      console.log("Missing required fields:", { name, imageUrl, weather });
+      console.log("Validation failed - Missing fields:", {
+        name: !name,
+        imageUrl: !imageUrl,
+        weather: !weather,
+      });
       return;
     }
 
     const newItem = { name, imageUrl, weather };
     console.log("Submitting new item:", newItem);
-    onSubmit(newItem);
+
+    try {
+      onSubmit(newItem);
+      resetForm();
+      console.log("onSubmit called successfully");
+    } catch (error) {
+      console.error("Error in handleSubmit:", error);
+    }
   };
 
   const handleWeatherChange = (e) => {
     console.log("Weather selected:", e.target.value);
     setWeather(e.target.value);
   };
+
+  useEffect(() => {
+    if (!isOpen) {
+      resetForm();
+    }
+  }, [isOpen]);
 
   return (
     <ModalWithForm
@@ -57,6 +77,7 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
       onClose={handleCloseModal}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      isValid={true}
     >
       <label htmlFor="name" className="modal__label">
         <p className="input__title">Name</p>
@@ -93,6 +114,7 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
             onChange={handleWeatherChange}
             required
             value="hot"
+            checked={weather === "hot"}
           />
           Hot
         </label>
@@ -105,6 +127,7 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
             onChange={handleWeatherChange}
             required
             value="warm"
+            checked={weather === "warm"}
           />
           Warm
         </label>
@@ -117,6 +140,7 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
             onChange={handleWeatherChange}
             required
             value="cold"
+            checked={weather === "cold"}
           />
           Cold
         </label>

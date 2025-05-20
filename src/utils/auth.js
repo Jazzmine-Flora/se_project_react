@@ -19,9 +19,8 @@ export const register = ({ name, avatar, email, password }) => {
     body: JSON.stringify({ name, avatar, email, password }),
   }).then(checkResponse);
 };
-
 export const login = ({ email, password }) => {
-  console.log("Attempting login with email:", email);
+  console.log("Attempting login with:", { email });
   return fetch(`${baseUrl}/signin`, {
     method: "POST",
     headers: {
@@ -29,22 +28,24 @@ export const login = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password }),
   })
-    .then((res) => {
-      console.log("Login response status:", res.status);
-      return checkResponse(res);
-    })
-    .catch((err) => {
-      console.error("Login fetch error:", err);
-      throw err;
+    .then(checkResponse) // Use the checkResponse helper
+    .then((data) => {
+      console.log("Login successful, received data:", data);
+      if (data.token) {
+        localStorage.setItem("jwt", data.token);
+        return data;
+      }
+      return Promise.reject("No token received");
     });
 };
 // Check token
 export const checkToken = (token) => {
+  console.log("Checking token:", token);
   return fetch(`${baseUrl}/users/me`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
-      authorization: `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     },
-  }).then(checkResponse);
+  }).then(checkResponse); // Use the checkResponse helper
 };

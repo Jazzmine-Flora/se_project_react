@@ -1,23 +1,29 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { login } from "../../utils/auth"; // Adjust the import path as necessary
+import "./LoginModal.css";
 
 const LoginModal = ({ isOpen, onClose, onLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrorMessage("");
     console.log("LoginModal - Attempting to login with:", { email, password });
-    onLogin({ email, password }) // Use the onLogin prop instead of direct login
-      .catch((err) => {
-        setErrorMessage("Invalid email or password");
-        console.error(err);
-      });
+    try {
+      const response = await onLogin({ email, password });
+      if (response && response.token) {
+        onClose(); // Only close if we got a successful response
+      } else {
+        setErrorMessage("Login failed. Please try again.");
+      }
+    } catch (err) {
+      setErrorMessage(err.message || "Invalid email or password");
+      console.error("Login error:", err);
+    }
   };
-
   const handleCloseModal = () => {
     onClose();
     setEmail("");
@@ -33,6 +39,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
       onClose={handleCloseModal}
       onOverlayClick={handleCloseModal}
       handleSubmit={handleSubmit}
+      isValid={email.length > 0 && password.length > 0}
     >
       <label className="modal__label">
         Email*

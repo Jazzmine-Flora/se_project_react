@@ -45,41 +45,46 @@ function App() {
 
   const checkToken = () => {
     const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      setIsLoading(true);
-      auth
-        .checkToken(jwt)
-        .then((res) => {
-          console.log("Token validation response:", res);
-          if (!res) {
-            throw new Error("No response from token validation");
-          }
-          setIsLoggedIn(true);
-          setCurrentUser(res.data); // Store the entire response
-          return api.getItems();
-        })
-        .then((data) => {
-          if (data) {
-            const itemsWithLikedProperty = data.map((item) => ({
-              ...item,
-              isLiked: item.likes.some((id) => id === currentUser?._id),
-            }));
-            setClothingItems(itemsWithLikedProperty);
-          }
-        })
-        .catch((err) => {
-          console.error("Token validation failed:", err);
-          localStorage.removeItem("jwt");
-          setIsLoggedIn(false);
-          setCurrentUser(null);
-          setClothingItems([]);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
+    console.log("Checking token:", jwt);
+
+    if (!jwt) {
       setIsLoading(false);
+      setIsLoggedIn(false);
+      setCurrentUser(null);
+      return Promise.resolve();
     }
+
+    return auth
+      .checkToken(jwt)
+      .then((res) => {
+        console.log("Token check response:", res);
+        if (res && res.data) {
+          setIsLoggedIn(true);
+          setCurrentUser(res.data);
+          return api.getItems(); // Chain the items fetch
+        } else {
+          throw new Error("Invalid token response");
+        }
+      })
+      .then((items) => {
+        if (items) {
+          const itemsWithLikedProperty = items.map((item) => ({
+            ...item,
+            isLiked: item.likes.some((id) => id === currentUser?._id),
+          }));
+          setClothingItems(itemsWithLikedProperty);
+        }
+      })
+      .catch((err) => {
+        console.error("Token validation error:", err);
+        localStorage.removeItem("jwt");
+        setIsLoggedIn(false);
+        setCurrentUser(null);
+        setClothingItems([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   useEffect(() => {
@@ -105,28 +110,42 @@ function App() {
   const handleLogin = () => {
     setIsLoginModalOpen(true);
   };
-  const handleLoginSubmit = ({ email, password }) => {
-    console.log("Starting login process with email:", email);
-    return auth
-      .login({ email, password })
-      .then((data) => {
-        console.log("Login response data:", data);
-        if (data.token) {
-          console.log("Token received:", data.token);
-          localStorage.setItem("jwt", data.token);
-          checkToken();
-          console.log("Current user after login:", currentUser);
-          setIsLoginModalOpen(false);
-        } else {
-          console.error("No token in response:", data);
-        }
-      })
-      .catch((err) => {
-        console.error("Login error:", err);
-        // You might want to show this error to the user
-      });
-  };
+  const handleLoginSubmit = async (values) => {
+    const { email, password } = values;
+    console.log("Login values:", { email, password });
+    try {
+      const loginResponse = await auth.login({ email, password });
+      console.log("Login response:", loginResponse);
 
+      if (!loginResponse || !loginResponse.token) {
+        throw new Error("Invalid login response");
+      }
+
+      localStorage.setItem("jwt", loginResponse.token);
+      setIsLoggedIn(true);
+      setCurrentUser(loginResponse.data);
+      setIsLoginModalOpen(false); // Add this line
+
+      const items = await api.getItems();
+      if (items) {
+        const itemsWithLikedProperty = items.map((item) => ({
+          ...item,
+          isLiked: item.likes.some((id) => id === loginResponse.data._id),
+        }));
+        setClothingItems(itemsWithLikedProperty);
+      }
+
+      return loginResponse;
+    } catch (err) {
+      console.error("Login error:", err);
+      setIsLoggedIn(false);
+      setCurrentUser(null);
+      setClothingItems([]);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  };
   const handleRegister = (values) => {
     const { name, avatar, email, password } = values;
     return register({ name, avatar, email, password }) // Add 'return' here
@@ -159,7 +178,7 @@ function App() {
   };
 
   const handleAddItemSubmit = (itemData) => {
-    console.log("Submitting item:", itemData);
+    console.log("About to make API call with data:", itemData);
     api
       .addItem(itemData)
       .then((newItem) => {
