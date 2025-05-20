@@ -343,10 +343,21 @@ function App() {
               onLoginClick={handleLogin}
               currentUser={currentUser}
               onLogout={() => {
+                console.log("Logout started");
+                console.log("Before logout - isLoggedIn:", isLoggedIn);
+                console.log("Before logout - currentUser:", currentUser);
+
                 localStorage.removeItem("jwt");
                 setIsLoggedIn(false);
                 setCurrentUser(null);
-                setClothingItems([]); // Clear the items when logging out
+                setClothingItems([]);
+
+                console.log(
+                  "After logout - localStorage jwt:",
+                  localStorage.getItem("jwt")
+                );
+                console.log("After logout - isLoggedIn:", isLoggedIn);
+                console.log("After logout - currentUser:", currentUser);
               }}
               onSignupClick={() => navigate("/signup")}
             />
