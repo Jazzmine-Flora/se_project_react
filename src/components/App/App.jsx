@@ -291,6 +291,14 @@ function App() {
       console.error("Error updating like status:", error);
     }
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    setCurrentUser(null);
+    setIsLoggedIn(false);
+    navigate("/"); // If you're using react-router
+  };
+
   useEffect(() => {
     getWeather(coordinates, APIkey)
       .then((data) => {
@@ -416,6 +424,7 @@ function App() {
                       clothingItems={clothingItems}
                       onCardLike={handleCardLike}
                       onEditProfile={handleEditProfile}
+                      onLogout={handleLogout}
                     />
                   </ProtectedRoute>
                 }

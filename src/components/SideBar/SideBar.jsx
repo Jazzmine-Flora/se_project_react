@@ -4,9 +4,9 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import "./SideBar.css";
 
-function SideBar({ onEditProfile }) {
-  // Add onEditProfile prop here
-  const currentUser = useContext(CurrentUserContext); // Add this line to use context
+function SideBar({ onEditProfile, onLogout }) {
+  // Add onLogout prop here
+  const currentUser = useContext(CurrentUserContext);
 
   return (
     <div className="sidebar">
@@ -14,7 +14,7 @@ function SideBar({ onEditProfile }) {
         <nav className="sidebar__nav-container">
           <img
             className="sidebar__avatar"
-            src={currentUser?.avatar || avatar} // Use user's avatar if available
+            src={currentUser?.avatar || avatar}
             alt="Sidebar Avatar"
           />
           <p className="sidebar__username">{currentUser?.name || "Taliba"}</p>
@@ -30,7 +30,11 @@ function SideBar({ onEditProfile }) {
             </button>
           </li>
           <li className="sidebar__nav-item">
-            <button className="sidebar__nav-link" type="button">
+            <button
+              className="sidebar__nav-link"
+              type="button"
+              onClick={onLogout} // Add onClick handler here
+            >
               Logout
             </button>
           </li>
