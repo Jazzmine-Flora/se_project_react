@@ -24,7 +24,7 @@
   object-position: center;
 
   font-weight: 700;
-  position: relative;
+  /* position: relative; */
 }
 
 .modal__weather {
@@ -39,6 +39,7 @@
 .modal__close-icon {
   width: 20px;
   height: 20px;
+
   /* color: black; */
 }
 

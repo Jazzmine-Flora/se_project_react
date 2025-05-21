@@ -1,7 +1,7 @@
-.modal__content {
+.modal__content.login-modal {
   height: 306px;
 }
 
-.modal__submit {
+.modal__content.login-modal .modal__submit {
   margin-top: 8px;
 }

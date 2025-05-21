@@ -98,10 +98,15 @@ function App() {
   const handleUpdateProfile = async (updatedData) => {
     try {
       console.log("Updating profile with:", updatedData);
-      const response = await api.updateProfile(updatedData);
-      console.log("Profile update response:", response);
-      setCurrentUser(response); // The API response should be the updated user object
-      setIsEditProfileModalOpen(false);
+      const userData = await api.updateProfile(updatedData);
+      console.log("Profile update response:", userData);
+
+      if (userData) {
+        setCurrentUser(userData);
+        setIsEditProfileModalOpen(false);
+      } else {
+        throw new Error("No user data received");
+      }
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -112,30 +117,37 @@ function App() {
   };
   const handleLoginSubmit = async (values) => {
     const { email, password } = values;
-    console.log("Login values:", { email, password });
     try {
+      setIsLoading(true);
       const loginResponse = await auth.login({ email, password });
-      console.log("Login response:", loginResponse);
 
       if (!loginResponse || !loginResponse.token) {
         throw new Error("Invalid login response");
       }
 
+      // Store token
       localStorage.setItem("jwt", loginResponse.token);
+
+      // Get user data from the response
+      const userData = loginResponse.user || loginResponse; // adjust this based on your API response structure
+
+      // Update user state first
       setIsLoggedIn(true);
-      setCurrentUser(loginResponse.data);
-      setIsLoginModalOpen(false); // Add this line
+      setCurrentUser(userData);
 
+      // Get items
       const items = await api.getItems();
-      if (items) {
-        const itemsWithLikedProperty = items.map((item) => ({
-          ...item,
-          isLiked: item.likes.some((id) => id === loginResponse.data._id),
-        }));
-        setClothingItems(itemsWithLikedProperty);
-      }
+      const itemsWithLikedProperty = items.map((item) => ({
+        ...item,
+        isLiked: item.likes.some((id) => id === userData._id),
+      }));
 
-      return loginResponse;
+      // Update items state
+      setClothingItems(itemsWithLikedProperty);
+      setIsLoginModalOpen(false);
+
+      // Navigate last
+      navigate("/");
     } catch (err) {
       console.error("Login error:", err);
       setIsLoggedIn(false);
@@ -293,22 +305,21 @@ function App() {
   console.log(currentTemperatureUnit);
 
   useEffect(() => {
-    api
-      .getItems()
-      .then((data) => {
-        console.log("Received items:", data);
-        const itemsWithLikedProperty = data.map((item) => ({
-          ...item,
-          isLiked: currentUser
-            ? item.likes.some((id) => id === currentUser._id)
-            : false,
-        }));
-        setClothingItems(itemsWithLikedProperty);
-      })
-      .catch((error) => {
-        console.error("Error loading items:", error);
-      });
-  }, [currentUser]);
+    if (currentUser && isLoggedIn) {
+      api
+        .getItems()
+        .then((data) => {
+          const itemsWithLikedProperty = data.map((item) => ({
+            ...item,
+            isLiked: item.likes.some((id) => id === currentUser._id),
+          }));
+          setClothingItems(itemsWithLikedProperty);
+        })
+        .catch((error) => {
+          console.error("Error loading items:", error);
+        });
+    }
+  }, [currentUser, isLoggedIn]);
 
   console.log("Render state:", {
     isLoading,
@@ -344,20 +355,12 @@ function App() {
               currentUser={currentUser}
               onLogout={() => {
                 console.log("Logout started");
-                console.log("Before logout - isLoggedIn:", isLoggedIn);
-                console.log("Before logout - currentUser:", currentUser);
-
                 localStorage.removeItem("jwt");
                 setIsLoggedIn(false);
                 setCurrentUser(null);
                 setClothingItems([]);
-
-                console.log(
-                  "After logout - localStorage jwt:",
-                  localStorage.getItem("jwt")
-                );
-                console.log("After logout - isLoggedIn:", isLoggedIn);
-                console.log("After logout - currentUser:", currentUser);
+                navigate("/"); // Add this line to redirect to home page
+                window.location.reload(); // Force a page refresh
               }}
               onSignupClick={() => navigate("/signup")}
             />

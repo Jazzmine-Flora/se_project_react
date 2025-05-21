@@ -1,7 +1,7 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { login } from "../../utils/auth"; // Adjust the import path as necessary
-// import "./LoginModal.css";
+import "./LoginModal.css";
 
 const LoginModal = ({ isOpen, onClose, onLogin }) => {
   const [email, setEmail] = useState("");
@@ -41,6 +41,7 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
       handleSubmit={handleSubmit}
       isValid={email.length > 0 && password.length > 0}
       onSubmit={handleSubmit}
+      className="login-modal"
     >
       <label className="modal__label">
         Email*

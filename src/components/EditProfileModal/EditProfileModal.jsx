@@ -1,6 +1,7 @@
 import { useState, useContext, useEffect } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import "./EditProfileModal.css";
+import "../LoginModal/LoginModal.css";
 
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
@@ -25,12 +26,12 @@ const EditProfileModal = ({
     try {
       await updateCurrentUser({ name, avatar });
       console.log("Update successful");
+      // Don't reset the form here since we want to keep the values
       onClose();
     } catch (error) {
       console.error("Error updating user:", error);
     }
   };
-
   // Remove handleClose function as it's redundant
 
   useEffect(() => {
@@ -47,8 +48,9 @@ const EditProfileModal = ({
       isOpen={isOpen}
       onClose={onClose} // Use onClose directly
       buttonText="Save"
-      handleSubmit={handleSubmit}
+      onSubmit={handleSubmit}
       isValid={isFormValid}
+      className="modal_type_edit-profile"
     >
       <label className="modal__label">
         Name*

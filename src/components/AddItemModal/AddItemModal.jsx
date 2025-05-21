@@ -77,7 +77,7 @@ const AddItemModal = ({ activeModal, handleCloseModal, isOpen, onSubmit }) => {
       onClose={handleCloseModal}
       isOpen={isOpen}
       onSubmit={handleSubmit}
-      isValid={true}
+      isValid={name.length > 0 && imageUrl.length > 0 && weather.length > 0}
     >
       <label htmlFor="name" className="modal__label">
         <p className="input__title">Name</p>

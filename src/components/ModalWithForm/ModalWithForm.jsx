@@ -9,10 +9,13 @@ function ModalWithForm({
   onClose,
   onSubmit,
   isValid,
+  className,
 }) {
   return (
     <div className={`modal ${isOpen && "modal_opened"}`}>
-      <div className="modal__content">
+      <div className={`modal__content ${className || ""}`}>
+        {" "}
+        {/* Make sure className is added here */}
         <h2 className="modal__title">{title}</h2>
         <button onClick={onClose} className="modal__close" type="button">
           <img className="modal__close-icon" src={closeIcon} alt="close" />

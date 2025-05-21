@@ -30,12 +30,14 @@ class Api {
       method: "PATCH",
       headers: this._getHeaders(),
       body: JSON.stringify({ name, avatar }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .then((data) => data.data || data); // Ensure we're returning the correct data structure
   }
 
   addItem(item) {

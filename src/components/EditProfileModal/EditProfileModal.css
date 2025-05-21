@@ -12,6 +12,10 @@
   gap: 24px;
 }
 
-/* .modal__content {
-  max-height: 500px;
-} */
+.modal__content.modal_type_edit-profile {
+  height: 306px;
+}
+
+.modal_type_edit-profile .modal__submit {
+  margin-top: 8px;
+}
