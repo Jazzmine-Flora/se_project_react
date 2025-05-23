@@ -4,7 +4,13 @@ import ItemCard from "../ItemCard/ItemCard";
 
 import "./ClothesSection.css";
 
-function ClothesSection({ onCardClick, clothingItems, onAddItem }) {
+function ClothesSection({
+  onCardClick,
+  clothingItems,
+  onAddItem,
+  onCardLike,
+  isLoggedIn,
+}) {
   return (
     <div className="clothes-section">
       <div className="clothes-section__header">
@@ -23,6 +29,8 @@ function ClothesSection({ onCardClick, clothingItems, onAddItem }) {
             key={item._id}
             item={item}
             onCardClick={onCardClick}
+            onCardLike={onCardLike}
+            isLoggedIn={isLoggedIn}
           ></ItemCard>
         ))}
       </ul>

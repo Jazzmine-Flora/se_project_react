@@ -4,6 +4,7 @@ import likeInactive from "../../assets/like-inactive.svg";
 
 function ItemCard({ item, onCardClick, currentUser, onCardLike, isLoggedIn }) {
   function handleCardClick() {
+    console.log("Card clicked!", item);
     onCardClick(item);
   }
   function handleLike(event) {

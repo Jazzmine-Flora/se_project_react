@@ -3,12 +3,14 @@ import SideBar from "../SideBar/SideBar";
 import "./Profile.css";
 
 function Profile({
-  onCardClick,
+  handleCardClick,
   clothingItems,
   handleAddClick,
   onAddItem,
   onEditProfile,
   onLogout,
+  onCardLike,
+  isLoggedIn,
 }) {
   return (
     <div className="profile">
@@ -18,8 +20,10 @@ function Profile({
       <section className="profile__content">
         <ClothesSection
           onAddItem={onAddItem}
-          onCardClick={onCardClick}
+          onCardClick={handleCardClick}
           clothingItems={clothingItems}
+          onCardLike={onCardLike}
+          isLoggedIn={isLoggedIn}
         />
       </section>
     </div>
