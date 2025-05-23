@@ -1,12 +1,12 @@
 import avatar from "../../assets/avatar.svg";
-import { useContext } from "react";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+// import { useContext } from "react";
+// import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
 import "./SideBar.css";
 
-function SideBar({ onEditProfile, onLogout }) {
+function SideBar({ onEditProfile, onLogout, currentUser }) {
   // Add onLogout prop here
-  const currentUser = useContext(CurrentUserContext);
+  // const currentUser = useContext(CurrentUserContext);
 
   return (
     <div className="sidebar">
@@ -17,7 +17,7 @@ function SideBar({ onEditProfile, onLogout }) {
             src={currentUser?.avatar || avatar}
             alt="Sidebar Avatar"
           />
-          <p className="sidebar__username">{currentUser?.name || "Taliba"}</p>
+          <p className="sidebar__username">{currentUser?.name || "User"}</p>
         </nav>
         <ul className="sidebar__nav-list">
           <li className="sidebar__nav-item">

@@ -69,3 +69,10 @@
   background-color: transparent;
   cursor: pointer;
 }
+
+.header__avatar {
+  width: 40px; /* or whatever size you want */
+  height: 40px; /* make it the same as width for a perfect circle */
+  border-radius: 50%; /* makes it circular */
+  object-fit: cover; /* ensures the image covers the area without stretching */
+}

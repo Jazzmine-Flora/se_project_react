@@ -59,18 +59,19 @@ function App() {
       .then((res) => {
         console.log("Token check response:", res);
         if (res && res.data) {
+          const userData = res.data;
           setIsLoggedIn(true);
-          setCurrentUser(res.data);
-          return api.getItems(); // Chain the items fetch
+          setCurrentUser(userData);
+          return api.getItems().then((items) => ({ items, userData }));
         } else {
           throw new Error("Invalid token response");
         }
       })
-      .then((items) => {
+      .then(({ items, userData }) => {
         if (items) {
           const itemsWithLikedProperty = items.map((item) => ({
             ...item,
-            isLiked: item.likes.some((id) => id === currentUser?._id),
+            isLiked: item.likes.some((id) => id === userData._id),
           }));
           setClothingItems(itemsWithLikedProperty);
         }
@@ -86,7 +87,6 @@ function App() {
         setIsLoading(false);
       });
   };
-
   useEffect(() => {
     checkToken();
   }, []);
@@ -190,22 +190,35 @@ function App() {
   };
 
   const handleAddItemSubmit = (itemData) => {
-    console.log("About to make API call with data:", itemData);
+    console.log("Received itemData:", itemData);
+    // Make sure itemData only contains the necessary fields
+    const { name, imageUrl, weather } = itemData;
+
+    const cleanedItemData = {
+      name,
+      imageUrl,
+      weather,
+    };
+
+    console.log("About to make API call with data:", cleanedItemData);
+
     api
-      .addItem(itemData)
+      .addItem(cleanedItemData)
       .then((newItem) => {
         console.log("Response from API:", newItem);
         const newItemWithLiked = {
-          ...newItem.data, // Change this line to use newItem.data
+          ...newItem.data,
           isLiked: false,
         };
         setClothingItems([newItemWithLiked, ...clothingItems]);
-
         handleCloseModal();
       })
-      .catch(console.error);
+      .catch((error) => {
+        console.error("Full error object:", error);
+        console.error("Error response data:", error.response?.data);
+        console.error("Error status:", error.response?.status);
+      });
   };
-
   const onAddItem = () => {
     setActiveModal("add-garment");
   };
@@ -385,6 +398,7 @@ function App() {
                     onEditProfile={handleEditProfile}
                     onLogout={handleLogout}
                     isLoggedIn={isLoggedIn}
+                    currentUser={currentUser}
                   />
                 </ProtectedRoute>
               }

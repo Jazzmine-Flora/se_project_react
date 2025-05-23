@@ -28,6 +28,7 @@ const EditProfileModal = ({
       console.log("Update successful");
       // Don't reset the form here since we want to keep the values
       onClose();
+      resetForm();
     } catch (error) {
       console.error("Error updating user:", error);
     }

@@ -43,7 +43,11 @@ function Header({
           <Link to="/profile" className="header__link">
             <div className="header__user">
               <p className="header__username">{currentUser?.name || "User"}</p>
-              <img src={avatar} alt="User avatar" className="header__avatar" />
+              <img
+                src={currentUser?.avatar || avatar}
+                alt="User avatar"
+                className="header__avatar"
+              />
             </div>
           </Link>
           <button className="header__button" onClick={onLogout}>

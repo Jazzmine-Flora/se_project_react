@@ -3,7 +3,7 @@ import SideBar from "../SideBar/SideBar";
 import "./Profile.css";
 
 function Profile({
-  handleCardClick,
+  onCardClick,
   clothingItems,
   handleAddClick,
   onAddItem,
@@ -11,16 +11,21 @@ function Profile({
   onLogout,
   onCardLike,
   isLoggedIn,
+  currentUser,
 }) {
   return (
     <div className="profile">
       <section className="profile__sidebar">
-        <SideBar onEditProfile={onEditProfile} onLogout={onLogout} />
+        <SideBar
+          onEditProfile={onEditProfile}
+          onLogout={onLogout}
+          currentUser={currentUser}
+        />
       </section>
       <section className="profile__content">
         <ClothesSection
-          onAddItem={onAddItem}
-          onCardClick={handleCardClick}
+          onAddItem={handleAddClick}
+          onCardClick={onCardClick}
           clothingItems={clothingItems}
           onCardLike={onCardLike}
           isLoggedIn={isLoggedIn}
