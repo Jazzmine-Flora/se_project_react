@@ -46,7 +46,7 @@
 }
 
 .item-card__image {
-  max-width: 325px;
+  width: 325px;
   height: 328px;
   border-radius: 15px;
   object-fit: cover;

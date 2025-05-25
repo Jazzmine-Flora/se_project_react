@@ -24,7 +24,7 @@ function ItemCard({ item, onCardClick, currentUser, onCardLike, isLoggedIn }) {
   console.log("Full item data:", item);
   return (
     <li className="item-card">
-      <div onClick={isLoggedIn ? () => onCardClick(item) : null}>
+      <div onClick={() => onCardClick(item)}>
         <div className="item-card__title-container">
           <h2 className="item-card__title">{item.name}</h2>
           {isLoggedIn && (

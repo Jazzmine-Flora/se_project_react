@@ -4,6 +4,8 @@ import closeIcon from "../../assets/close icon.svg";
 function ModalWithForm({
   children,
   buttonText,
+  secondaryButtonText,
+  onSecondaryClick,
   title,
   isOpen,
   onClose,
@@ -28,14 +30,22 @@ function ModalWithForm({
           className="modal__form"
         >
           {children}
-          <button
-            className={`modal__submit ${
-              !isValid ? "modal__submit_disabled" : ""
-            }`}
-            type="submit"
-          >
-            {buttonText}
-          </button>
+          <div className="modal__button-container">
+            <button type="submit" className="modal__submit" disabled={!isValid}>
+              {buttonText}
+            </button>
+            <p className="modal__or">or</p>
+            {secondaryButtonText && (
+              <button
+                type="button"
+                className="modal__secondary-button"
+                onClick={onSecondaryClick}
+                // disabled={!isValid}
+              >
+                {secondaryButtonText}
+              </button>
+            )}
+          </div>
         </form>
       </div>
     </div>

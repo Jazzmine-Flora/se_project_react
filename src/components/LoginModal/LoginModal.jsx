@@ -3,7 +3,7 @@ import ModalWithForm from "../ModalWithForm/ModalWithForm";
 import { login } from "../../utils/auth"; // Adjust the import path as necessary
 import "./LoginModal.css";
 
-const LoginModal = ({ isOpen, onClose, onLogin }) => {
+const LoginModal = ({ isOpen, onClose, onLogin, onSignupClick }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,6 +35,8 @@ const LoginModal = ({ isOpen, onClose, onLogin }) => {
     <ModalWithForm
       title="Log in"
       buttonText="Log in"
+      secondaryButtonText="Sign up"
+      onSecondaryClick={onSignupClick}
       isOpen={isOpen}
       onClose={handleCloseModal}
       onOverlayClick={handleCloseModal}

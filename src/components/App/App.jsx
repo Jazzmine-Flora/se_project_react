@@ -171,6 +171,16 @@ function App() {
       });
   };
 
+  const handleLoginClick = () => {
+    setIsRegisterModalOpen(false); // Close register modal
+    setIsLoginModalOpen(true); // Open login modal
+  };
+
+  const handleSignupClick = () => {
+    setIsLoginModalOpen(false); // Close login modal
+    setIsRegisterModalOpen(true); // Open register modal
+  };
+
   const handleCardClick = (card) => {
     setSelectedCard(card);
     setActiveModal("preview");
@@ -413,12 +423,14 @@ function App() {
           isOpen={isLoginModalOpen}
           onClose={() => setIsLoginModalOpen(false)}
           onLogin={handleLoginSubmit}
+          onSignupClick={handleSignupClick}
         />
         <RegisterModal
           isOpen={isRegisterModalOpen}
           onClose={() => setIsRegisterModalOpen(false)}
           onRegister={handleRegister}
           onLogin={handleLoginSubmit}
+          onLoginClick={handleLoginClick}
         />
         <AddItemModal
           activeModal={activeModal}
@@ -427,9 +439,11 @@ function App() {
           onSubmit={handleAddItemSubmit}
         />
         <ItemModal
+          activeModal={activeModal}
           card={selectedCard}
           onClose={handleCloseModal}
           isOpen={activeModal === "preview"}
+          onCardClick={handleCardClick}
           onDelete={handleDeleteItem}
           currentUser={currentUser}
         />

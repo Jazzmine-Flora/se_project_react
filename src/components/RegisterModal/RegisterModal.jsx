@@ -1,7 +1,13 @@
 import { useState } from "react";
 import ModalWithForm from "../ModalWithForm/ModalWithForm";
 
-const RegisterModal = ({ isOpen, onClose, onRegister, onLogin }) => {
+const RegisterModal = ({
+  isOpen,
+  onClose,
+  onRegister,
+  onLogin,
+  onLoginClick,
+}) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,6 +64,8 @@ const RegisterModal = ({ isOpen, onClose, onRegister, onLogin }) => {
       onClose={handleCloseModal}
       onOverlayClick={handleCloseModal}
       onSubmit={handleSubmit}
+      secondaryButtonText={"Log in"}
+      onSecondaryClick={onLoginClick}
     >
       <label className="modal__label">
         Name*

@@ -98,11 +98,10 @@
   font-family: "Cabinet Grotesk";
   font-size: 16px;
   line-height: 20px;
-  max-width: 124px;
+  width: 73px;
   height: 36px;
   border-radius: 4px;
   cursor: pointer;
-  padding: 0;
 }
 
 .modal__submit_disabled {
@@ -112,4 +111,46 @@
 .modal__label_type_radio {
   display: flex;
   gap: 8px;
+}
+
+.modal__button-container {
+  display: flex;
+  /* justify-content: space-between; */
+
+  gap: 12px;
+}
+
+.modal__secondary-button {
+  border: none;
+  background-color: white;
+  color: black;
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  line-height: 20px;
+  width: 73px;
+  height: 36px;
+  right: 10px;
+  margin-top: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.modal__or {
+  font-family: "Cabinet Grotesk";
+  font-size: 16px;
+  line-height: 20px;
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+.modal__submit:disabled,
+.modal__secondary-button:disabled {
+  background-color: #f6f7f8;
+  color: #c0c0c0;
+  cursor: not-allowed;
+  border-color: #c0c0c0;
+}
+
+.modal__secondary-button:disabled {
+  background-color: transparent;
 }
