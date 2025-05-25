@@ -1,8 +1,10 @@
 import "./ItemCard.css";
 import likeActive from "../../assets/like-active.svg";
 import likeInactive from "../../assets/like-inactive.svg";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
-function ItemCard({ item, onCardClick, currentUser, onCardLike, isLoggedIn }) {
+function ItemCard({ item, onCardClick, onCardLike, isLoggedIn }) {
   function handleCardClick() {
     console.log("Card clicked!", item);
     onCardClick(item);
@@ -22,6 +24,8 @@ function ItemCard({ item, onCardClick, currentUser, onCardLike, isLoggedIn }) {
   console.log(item);
   console.log("Current item liked status:", item.isLiked);
   console.log("Full item data:", item);
+
+  const { currentUser } = useContext(CurrentUserContext);
   return (
     <li className="item-card">
       <div onClick={() => onCardClick(item)}>

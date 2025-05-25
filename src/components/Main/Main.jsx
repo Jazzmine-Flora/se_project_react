@@ -7,6 +7,7 @@ import "./Main.css";
 import CurrentTemperatureUnitContext from "../../contexts/CurrentTemperatureUnitContext";
 import { getWeather, filterWeatherData } from "../../utils/weatherApi";
 
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 // import "App.jsx";
 // import "./ItemCard.css";
 
@@ -16,9 +17,9 @@ function Main({
   clothingItems,
   onCardLike,
   isLoggedIn,
-  currentUser,
   onDelete,
 }) {
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const { currentTemperatureUnit } = useContext(CurrentTemperatureUnitContext);
   console.log(currentTemperatureUnit);
   const temp = weatherData?.temperature?.[currentTemperatureUnit];

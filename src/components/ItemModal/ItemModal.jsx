@@ -1,6 +1,8 @@
 import "./ItemModal.css";
 import closeIcon from "../../assets/Cross.svg";
 import DeleteItemModal from "../DeleteItemModal/DeleteItemModal";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function ItemModal({
   activeModal, // Make sure this prop is used
@@ -9,10 +11,11 @@ function ItemModal({
   card,
   onDelete,
   onConfirm,
-  currentUser,
 }) {
   // The modal should be open when activeModal is "preview" OR when isOpen is true
   const shouldBeOpen = activeModal === "preview" || isOpen;
+
+  const { currentUser } = useContext(CurrentUserContext);
 
   const isOwn =
     currentUser &&

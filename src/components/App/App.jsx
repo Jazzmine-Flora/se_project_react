@@ -22,8 +22,11 @@ import { CurrentUserProvider } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute";
 import { useNavigate } from "react-router-dom";
 import EditProfileModal from "../EditProfileModal/EditProfileModal";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function App() {
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const [weatherData, setWeatherData] = useState({
     type: "",
@@ -39,7 +42,7 @@ function App() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState(null);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
 
@@ -97,15 +100,10 @@ function App() {
 
   const handleUpdateProfile = async (updatedData) => {
     try {
-      console.log("Updating profile with:", updatedData);
       const userData = await api.updateProfile(updatedData);
-      console.log("Profile update response:", userData);
-
       if (userData) {
         setCurrentUser(userData);
         setIsEditProfileModalOpen(false);
-      } else {
-        throw new Error("No user data received");
       }
     } catch (error) {
       console.error("Error updating profile:", error);

@@ -1,3 +1,5 @@
+import { checkResponse } from "./auth";
+
 const baseUrl = "http://localhost:3001";
 
 class Api {
@@ -17,12 +19,7 @@ class Api {
   getItems() {
     return fetch(`${this._baseUrl}/items`, {
       headers: this._getHeaders(),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(checkResponse);
   }
 
   updateProfile({ name, avatar }) {
@@ -31,13 +28,8 @@ class Api {
       headers: this._getHeaders(),
       body: JSON.stringify({ name, avatar }),
     })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .then((data) => data.data || data); // Ensure we're returning the correct data structure
+      .then(checkResponse)
+      .then((data) => data.data || data);
   }
 
   addItem(item) {
@@ -45,36 +37,21 @@ class Api {
       method: "POST",
       headers: this._getHeaders(),
       body: JSON.stringify(item),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(checkResponse);
   }
 
   deleteItem(id) {
     return fetch(`${this._baseUrl}/items/${id}`, {
       method: "DELETE",
       headers: this._getHeaders(),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(checkResponse);
   }
 
   toggleCardLike(cardId, isLiked) {
     return fetch(`${this._baseUrl}/items/${cardId}/likes`, {
       method: isLiked ? "DELETE" : "PUT",
       headers: this._getHeaders(),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(checkResponse);
   }
 }
 

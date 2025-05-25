@@ -4,13 +4,14 @@ import "./Header.css";
 import logo from "../../assets/logo.svg";
 import avatar from "../../assets/avatar.svg";
 import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
+import { useContext } from "react";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 function Header({
   handleAddClick,
   weatherData,
   isLoggedIn,
   onLoginClick = { handleLogin },
-  currentUser,
   onLogout, // Add a comma here
   onSignupClick, // Move this inside the props object
 }) {
@@ -18,6 +19,7 @@ function Header({
     month: "long",
     day: "numeric",
   });
+  const { currentUser } = useContext(CurrentUserContext);
 
   return (
     <header className="header">
