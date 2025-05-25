@@ -64,7 +64,7 @@ const RegisterModal = ({
       onClose={handleCloseModal}
       onOverlayClick={handleCloseModal}
       onSubmit={handleSubmit}
-      secondaryButtonText={"Log in"}
+      secondaryButtonText={"or Log in"}
       onSecondaryClick={onLoginClick}
     >
       <label className="modal__label">

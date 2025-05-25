@@ -34,7 +34,7 @@ function ModalWithForm({
             <button type="submit" className="modal__submit" disabled={!isValid}>
               {buttonText}
             </button>
-            <p className="modal__or">or</p>
+            {/* <p className="modal__or">or</p> */}
             {secondaryButtonText && (
               <button
                 type="button"

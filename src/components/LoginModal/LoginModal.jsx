@@ -35,7 +35,7 @@ const LoginModal = ({ isOpen, onClose, onLogin, onSignupClick }) => {
     <ModalWithForm
       title="Log in"
       buttonText="Log in"
-      secondaryButtonText="Sign up"
+      secondaryButtonText="or Sign up"
       onSecondaryClick={onSignupClick}
       isOpen={isOpen}
       onClose={handleCloseModal}

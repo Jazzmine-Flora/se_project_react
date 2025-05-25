@@ -8,9 +8,10 @@ import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 const EditProfileModal = ({
   isOpen,
   onClose,
-  currentUser,
+
   updateCurrentUser,
 }) => {
+  const { currentUser } = useContext(CurrentUserContext);
   const [name, setName] = useState("");
   const [avatar, setAvatar] = useState("");
   const isFormValid = name.length > 0 && avatar.length > 0;
@@ -26,9 +27,8 @@ const EditProfileModal = ({
     try {
       await updateCurrentUser({ name, avatar });
       console.log("Update successful");
-      // Don't reset the form here since we want to keep the values
+      resetForm(); // Don't reset the form here since we want to keep the values
       onClose();
-      resetForm();
     } catch (error) {
       console.error("Error updating user:", error);
     }

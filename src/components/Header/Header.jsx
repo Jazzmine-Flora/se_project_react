@@ -50,9 +50,9 @@ function Header({
               />
             </div>
           </Link>
-          <button className="header__button" onClick={onLogout}>
+          {/* <button className="header__button" onClick={onLogout}>
             Log out
-          </button>
+          </button> */}
         </>
       ) : (
         <div className="header__buttons">

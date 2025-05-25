@@ -98,7 +98,7 @@
   font-family: "Cabinet Grotesk";
   font-size: 16px;
   line-height: 20px;
-  width: 73px;
+  min-width: 73px;
   height: 36px;
   border-radius: 4px;
   cursor: pointer;
@@ -123,16 +123,17 @@
 .modal__secondary-button {
   border: none;
   background-color: white;
-  color: black;
+  color: rgba(0, 0, 0, 0.5);
   font-family: "Cabinet Grotesk";
   font-size: 16px;
   line-height: 20px;
-  width: 73px;
-  height: 36px;
+  max-width: 73px;
+  height: 20px;
   right: 10px;
-  margin-top: 8px;
+  margin-top: 16px;
   border-radius: 4px;
   cursor: pointer;
+  padding: 0;
 }
 
 .modal__or {

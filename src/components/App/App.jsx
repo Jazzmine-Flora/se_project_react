@@ -128,14 +128,15 @@ function App() {
       // Store token
       localStorage.setItem("jwt", loginResponse.token);
 
-      // Get user data from the response
-      const userData = loginResponse.user || loginResponse; // adjust this based on your API response structure
+      // Get full user profile using checkToken
+      const userResponse = await auth.checkToken(loginResponse.token);
+      const userData = userResponse.data;
 
-      // Update user state first
+      // Update user state
       setIsLoggedIn(true);
       setCurrentUser(userData);
 
-      // Get items
+      // Get items with updated likes
       const items = await api.getItems();
       const itemsWithLikedProperty = items.map((item) => ({
         ...item,
@@ -146,7 +147,6 @@ function App() {
       setClothingItems(itemsWithLikedProperty);
       setIsLoginModalOpen(false);
 
-      // Navigate last
       navigate("/");
     } catch (err) {
       console.error("Login error:", err);
@@ -158,6 +158,7 @@ function App() {
       setIsLoading(false);
     }
   };
+
   const handleRegister = (values) => {
     const { name, avatar, email, password } = values;
     return register({ name, avatar, email, password }) // Add 'return' here
@@ -267,7 +268,8 @@ function App() {
         setClothingItems((state) =>
           state.filter((c) => c._id !== selectedCard._id)
         );
-        setActiveModal("");
+        handleCloseModal();
+        // Clear selected card after deletion
       })
       .catch((error) => {
         console.error("Delete error details:", error);
@@ -281,27 +283,41 @@ function App() {
       }
 
       const isLiked = card.likes.some((id) => id === currentUser._id);
+
+      // Update the UI immediately for better user experience
+      setClothingItems((items) =>
+        items.map((item) =>
+          item._id === card._id ? { ...item, isLiked: !isLiked } : item
+        )
+      );
+
+      // Make the API call
       const response = await api.toggleCardLike(card._id, isLiked);
 
+      // Update with the server response
       setClothingItems((items) =>
-        items.map((item) => {
-          if (item._id === card._id) {
-            // Check if response.data exists (some APIs wrap the response)
-            const updatedCard = response.data || response;
-            return {
-              ...item,
-              likes: updatedCard.likes || [],
-              isLiked: !isLiked, // Toggle the isLiked state directly
-            };
-          }
-          return item;
-        })
+        items.map((item) =>
+          item._id === card._id
+            ? {
+                ...item,
+                likes: response.data?.likes || response.likes || [],
+                isLiked:
+                  response.data?.likes?.includes(currentUser._id) ||
+                  response.likes?.includes(currentUser._id),
+              }
+            : item
+        )
       );
     } catch (error) {
       console.error("Error updating like status:", error);
+      // Revert the optimistic update on error
+      setClothingItems((items) =>
+        items.map((item) =>
+          item._id === card._id ? { ...item, isLiked: isLiked } : item
+        )
+      );
     }
   };
-
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     setCurrentUser(null);
