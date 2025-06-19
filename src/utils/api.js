@@ -1,6 +1,7 @@
 import { checkResponse } from "./auth";
+import { baseUrl } from "./constants";
 
-const baseUrl = "http://localhost:3001";
+// const baseUrl = "http://localhost:3001";
 
 class Api {
   constructor({ baseUrl }) {

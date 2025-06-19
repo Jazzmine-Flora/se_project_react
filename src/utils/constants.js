@@ -110,6 +110,11 @@ export const defaultClothingItems = [
   },
 ];
 
+export const baseUrl =
+  process.env.NODE_ENV === "production"
+    ? "https://api.wat2wear.twilightparadox.com"
+    : "http://localhost:3001";
+
 export const coordinates = {
   latitude: 40.8638,
   longitude: -73.047661,

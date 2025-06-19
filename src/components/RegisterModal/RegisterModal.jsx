@@ -66,6 +66,7 @@ const RegisterModal = ({
       onSubmit={handleSubmit}
       secondaryButtonText={"or Log in"}
       onSecondaryClick={onLoginClick}
+      isValid={name && email && password} // Ensure all fields are filled
     >
       <label className="modal__label">
         Name*

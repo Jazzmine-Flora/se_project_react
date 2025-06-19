@@ -3,11 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://wat2wear.twilightparadox.com",
   "scripts": {
     "dev": "vite --open",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+"deploy": "npm run build && scp -r ./dist/* taliba.latif@wat2wear.twilightparadox.com:/home/taliba.latif/frontend"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
